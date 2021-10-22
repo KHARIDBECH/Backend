@@ -10,14 +10,23 @@ const productSchema = mongoose.Schema({
      type: 'string',
      required: true
     },
-    imageUrl: {
-        type: 'string',
-        required: true,
+    postedAt:{
+        type: String,
+        default: Date.now()
+    },
+    image:{
+        type: Array,
+        required: true
     },
     price: {
         type: 'string',
         required: true
+    },
+    iid:{
+        type:'string',
+        required:true,
     }
+    
 });
 
 

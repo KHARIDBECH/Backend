@@ -1,26 +1,24 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const app = express();
-const userRoutes = require('./routes/user')
-const productRoutes = require('./routes/product')
-const BodyParser = require('body-parser')
-const cors = require('cors')
-//
-app.use(cors())
-mongoose.connect('mongodb+srv://Khan:oPtvLQLycrPJvzxm@cluster0.jrv50.mongodb.net/KharidBech?retryWrites=true&w=majority',{ useNewUrlParser: true , useUnifiedTopology: true })
-  .then(() => {
-    console.log('Successfully connected to MongoDB Atlas!');
-  })
-  .catch((error) => {
-    console.log('Unable to connect to MongoDB Atlas!');
-    console.error(error);
-  });
+require("dotenv").config();
+const path = require('path')
 
-app.use(express.json());
+const express = require("express");
+const { mongoConnect } = require("./utils/dbUtils");
+const app = express();
+const userRoutes = require("./routes/user");
+const productRoutes = require("./routes/product");
+const BodyParser = require("body-parser");
+const cors = require("cors");
+const swaggerRoute=require('./swagger/swagger');
+app.use(cors());
 
   
-app.use('/api/auth',userRoutes);
-app.use('/api/stuff',productRoutes);
-
-//
+// Static Middleware 
+console.log(path.join(__dirname, '/public/images'))
+app.use('/public', express.static(path.resolve('./public')));
+// app.use(express.static(path.join(__dirname, '/public/images')));
+app.use(express.json());
+app.use('/developer',swaggerRoute);
+app.use("/api/auth", userRoutes);
+app.use("/api/stuff", productRoutes);
+mongoConnect(); //Mongo connection
 module.exports = app;
