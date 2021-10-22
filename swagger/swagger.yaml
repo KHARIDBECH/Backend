@@ -1,0 +1,60 @@
+swagger: "2.0"
+info:
+  description: "Kharid Bech RESTAPI's"
+  version: "1.0.0"
+  title: "KharidBech"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "mk67205@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:5000"
+basePath: "/api"
+tags:
+- name: "default"
+  description: "Everything about Kharid Bech API's"
+schemes:
+- "http"
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - 'default'
+      description: 'This api is use for  signingup of the user'
+      summary: 'use for user Signup'
+      consumes: 
+        - 'application/json'
+      parameters:
+        - in: body
+          name: 'body'
+          required: true
+          schema:
+            type: object
+            required: 
+                   - firstName
+                   - lastName
+                   - email
+                   - password
+            properties: 
+              firstName:
+                type: string
+              lastName:
+                type: string
+              email:
+                type: string
+                format: email
+              password:
+                type: string 
+                format: password
+      produces: 
+        - 'application/json'
+      responses:
+        '201':
+          description: 'created'
+        '400':
+          description: 'bad-request'
+          default:
+          description: 'Internal Error' 
+
+

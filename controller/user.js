@@ -1,11 +1,20 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-
-
-exports.signup = (req, res,next) => {
-    console.log(req.body)
-    bcrypt.hash(req.body.password, 10)
+const logger = require('../utils/logger')
+const HttpStatus=require('http-status-codes');
+const apiUtils=require('../utils/apiUtils');
+const globalConstant=require('../utils/globalConstant');
+exports.signup = (req, res) => {
+   logger.debug('Inside signup request')
+   User.findOne({email:req.body.email})
+   .then((user)=>{
+       if(user){
+           logger.debug("Error!! user already registered please login")
+           return res.status(HttpStatus.BAD_REQUEST).json(apiUtils.getResponseMessage(HttpStatus.BAD_REQUEST,'User already Exist'))
+       }
+       logger.debug('No user with given email detected creating new user')
+       bcrypt.hash(req.body.password,globalConstant.SALT_ROUNDS)
         .then(hash => {
             const user = new User({
                 firstName: req.body.firstName,
@@ -13,19 +22,27 @@ exports.signup = (req, res,next) => {
                 email: req.body.email,
                 password: hash
             });
+      logger.debug('Password hashed')
+      logger.debug('Saving user signup data')
             user.save().then(() => {
-                    res.status(201).json({
-                        message: 'User Created succesfully!'
-                    })
+                logger.debug("User created succesfully")
+                    res.status(HttpStatus.CREATED).json(apiUtils.getResponseMessage(HttpStatus.CREATED,'User created Succesfully'))
+                    
                 })
-                .catch((error) => {
-                    res.status(500).json({
-                        error: error
-                    })
+                .catch((err) => {
+                    logger.debug("Sorryy... something went wrong")
+                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(HttpStatus.INTERNAL_SERVER_ERROR,err.message))
                 })
 
         })
-        .catch((error) => {res.status(500).json({error:error})})
+
+   })
+   .catch((err)=>{
+    logger.debug("Sorryy... Error occured something went wrong")
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(HttpStatus.INTERNAL_SERVER_ERROR,err))
+   })
+    
+ 
 };
 
 exports.signin = (req, res, next) => {
