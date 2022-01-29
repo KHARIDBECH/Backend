@@ -3,6 +3,8 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const logger = require('../utils/logger')
 const HttpStatus=require('http-status-codes');
+require('dotenv').config()
+require('dotenv').config();
 const apiUtils=require('../utils/apiUtils');
 const globalConstant=require('../utils/globalConstant');
 exports.signup = (req, res) => {
@@ -55,10 +57,14 @@ exports.signin = (req, res, next) => {
          if(!valid){
              return res.status(401).json({error:new Error('Incorrect password')})
          }
-         const token = jwt.sign({userId:user._id},'RANDOM_TOKEN_SECRET',{expiresIn:'24h'})
-         res.status(200).json({
-             userId:user._id,
-             token:token});
+         logger.debug('password matched, generating token')
+         const token = apiUtils.generateAccessToken({userId:user._id},process.env.TOKEN_SECRET)
+        const loginResponse=apiUtils.getResponseMessage(200,'logged in successfully');
+        loginResponse['token']=token;
+        loginResponse['firstName']=user.firstName;
+        loginResponse['userId']=user._id;
+            res.status(HttpStatus.OK).json(loginResponse);
+       
      })
      .catch((error)=>{res.status(500).json({error:error})})
    })
@@ -66,3 +72,29 @@ exports.signin = (req, res, next) => {
    
 
 };
+
+exports.verify=(req,res)=>{
+    logger.debug('inside verify user api')
+    const authHeader = req.headers['authorization'];
+    const bearerToken = authHeader.split(' ')
+    const token = bearerToken[1];
+    // console.log(req.user)
+    apiUtils.verifyAccessToken(token,process.env.TOKEN_SECRET)
+    .then((result)=>{
+        res.status(HttpStatus.OK).json(result);
+    })
+    .catch((err)=>{
+        res.status(HttpStatus.BAD_REQUEST).json({error:new Error('Error occured')});
+    })
+}
+
+exports.getUser = (req,res)=>{
+const userId = req.query.userId;
+User.find({_id:userId},{firstName:1,lastName:1,email:1,_id:0})
+.then((user)=>{ 
+res.status(HttpStatus.OK).json(user);
+})
+.catch((err)=>{
+    res.status(HttpStatus.BAD_REQUEST)
+})
+}

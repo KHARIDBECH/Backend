@@ -182,3 +182,169 @@
 2021-10-16T04:00:16.362Z: [34mdebug[39m: User created succesfully
 2021-10-20T10:26:17.009Z: [34mdebug[39m: Inside signup request
 2021-10-20T10:26:17.256Z: [34mdebug[39m: Error!! user already registered please login
+2021-10-22T21:22:53.636Z: [34mdebug[39m: Inside signup request
+2021-10-22T21:22:53.888Z: [34mdebug[39m: No user with given email detected creating new user
+2021-10-22T21:22:54.021Z: [34mdebug[39m: Password hashed
+2021-10-22T21:22:54.022Z: [34mdebug[39m: Saving user signup data
+2021-10-22T21:22:54.730Z: [34mdebug[39m: User created succesfully
+2021-10-22T21:26:11.441Z: [34mdebug[39m: Inside signup request
+2021-10-22T21:26:11.668Z: [34mdebug[39m: No user with given email detected creating new user
+2021-10-22T21:26:11.805Z: [34mdebug[39m: Password hashed
+2021-10-22T21:26:11.806Z: [34mdebug[39m: Saving user signup data
+2021-10-22T21:26:12.258Z: [34mdebug[39m: User created succesfully
+2021-10-23T06:10:31.919Z: [34mdebug[39m: password matched, generating token
+2021-10-23T19:01:39.527Z: [34mdebug[39m: password matched, generating token
+2021-10-23T19:30:05.698Z: [34mdebug[39m: inside verify user api
+2021-10-23T19:31:03.578Z: [34mdebug[39m: inside verify user api
+2021-10-23T19:31:27.200Z: [34mdebug[39m: inside verify user api
+2021-10-23T19:32:34.707Z: [34mdebug[39m: inside verify user api
+2021-10-23T19:32:56.054Z: [34mdebug[39m: inside verify user api
+2021-10-23T19:33:46.904Z: [34mdebug[39m: inside verify user api
+2021-10-23T19:35:53.699Z: [34mdebug[39m: inside verify user api
+2021-10-23T19:37:10.174Z: [34mdebug[39m: password matched, generating token
+2021-10-23T19:37:32.604Z: [34mdebug[39m: password matched, generating token
+2021-10-23T19:38:49.338Z: [34mdebug[39m: inside verify user api
+2021-10-24T05:47:31.833Z: [34mdebug[39m: inside verify user api
+2021-10-24T06:06:06.916Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:07:11.157Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:08:07.551Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:10:02.306Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:10:02.317Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:10:02.656Z: [34mdebug[39m: user found
+2021-10-24T06:17:33.320Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:17:33.336Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:17:43.357Z: [34mdebug[39m: Operation `users.findOne()` buffering timed out after 10000ms
+2021-10-24T06:18:10.344Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:18:10.347Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:18:20.362Z: [34mdebug[39m: Operation `users.findOne()` buffering timed out after 10000ms
+2021-10-24T06:18:52.201Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:18:52.216Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:18:54.248Z: [34mdebug[39m: user found
+2021-10-24T06:21:37.022Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:21:37.031Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:21:37.355Z: [34mdebug[39m: user found
+2021-10-24T06:21:50.623Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:21:50.626Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:21:50.947Z: [34mdebug[39m: user found
+2021-10-24T06:22:19.487Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:22:19.490Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:22:19.824Z: [34mdebug[39m: user found
+2021-10-24T06:23:36.648Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:23:36.650Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:23:36.820Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:23:36.824Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:23:36.869Z: [34mdebug[39m: user found
+2021-10-24T06:23:37.032Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:23:37.035Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:23:37.085Z: [34mdebug[39m: user found
+2021-10-24T06:23:37.655Z: [34mdebug[39m: user found
+2021-10-24T06:23:38.214Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:23:38.217Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:23:38.324Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:23:38.327Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:23:38.474Z: [34mdebug[39m: user found
+2021-10-24T06:23:38.562Z: [34mdebug[39m: user found
+2021-10-24T06:23:41.282Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:23:41.286Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:23:41.509Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:23:41.512Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:23:41.524Z: [34mdebug[39m: user found
+2021-10-24T06:23:41.848Z: [34mdebug[39m: user found
+2021-10-24T06:24:56.273Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:24:56.282Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:24:58.227Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:24:58.231Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:24:58.586Z: [34mdebug[39m: user found
+2021-10-24T06:24:58.815Z: [34mdebug[39m: user found
+2021-10-24T06:30:20.239Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:30:20.250Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:30:20.608Z: [34mdebug[39m: user found
+2021-10-24T06:32:09.356Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:32:09.368Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:32:09.659Z: [34mdebug[39m: user found
+2021-10-24T06:34:05.333Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:34:05.343Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:34:05.673Z: [34mdebug[39m: user found
+2021-10-24T06:35:26.818Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:35:26.829Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:35:29.852Z: [34mdebug[39m: user found
+2021-10-24T06:36:09.914Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:36:09.924Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:36:10.172Z: [34mdebug[39m: user found
+2021-10-24T06:36:42.881Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:36:42.894Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:36:45.325Z: [34mdebug[39m: user found
+2021-10-24T06:37:25.218Z: [34mdebug[39m: inside verify User for login middleware
+2021-10-24T06:37:25.229Z: [34mdebug[39m: token verified, looking for user
+2021-10-24T06:37:26.229Z: [34mdebug[39m: user found
+2021-12-06T04:16:41.536Z: [34mdebug[39m: password matched, generating token
+2021-12-06T04:17:23.122Z: [34mdebug[39m: inside verify User for login middleware
+2021-12-06T04:17:23.129Z: [34mdebug[39m: jwt expired
+2021-12-06T04:17:44.635Z: [34mdebug[39m: inside verify User for login middleware
+2021-12-06T04:17:44.638Z: [34mdebug[39m: jwt expired
+2021-12-06T04:18:04.082Z: [34mdebug[39m: password matched, generating token
+2021-12-06T04:18:36.740Z: [34mdebug[39m: inside verify User for login middleware
+2021-12-06T04:18:36.742Z: [34mdebug[39m: jwt expired
+2021-12-06T04:20:52.872Z: [34mdebug[39m: inside verify User for login middleware
+2021-12-06T04:20:52.875Z: [34mdebug[39m: jwt expired
+2021-12-06T04:25:31.797Z: [34mdebug[39m: Inside signup request
+2021-12-06T04:25:32.887Z: [34mdebug[39m: No user with given email detected creating new user
+2021-12-06T04:25:33.077Z: [34mdebug[39m: Password hashed
+2021-12-06T04:25:33.078Z: [34mdebug[39m: Saving user signup data
+2021-12-06T04:25:36.267Z: [34mdebug[39m: User created succesfully
+2021-12-06T04:25:47.056Z: [34mdebug[39m: password matched, generating token
+2021-12-06T04:28:13.187Z: [34mdebug[39m: inside verify User for login middleware
+2021-12-06T04:28:13.189Z: [34mdebug[39m: jwt expired
+2021-12-06T04:35:41.624Z: [34mdebug[39m: password matched, generating token
+2021-12-06T04:37:09.177Z: [34mdebug[39m: inside verify User for login middleware
+2021-12-06T04:37:09.179Z: [34mdebug[39m: token verified, looking for user
+2021-12-06T04:37:09.511Z: [34mdebug[39m: user found
+2021-12-06T04:46:38.360Z: [34mdebug[39m: inside verify User for login middleware
+2021-12-06T04:46:38.362Z: [34mdebug[39m: token verified, looking for user
+2021-12-06T04:46:38.956Z: [34mdebug[39m: user found
+2021-12-06T06:11:52.875Z: [34mdebug[39m: Inside signup request
+2021-12-06T06:11:53.465Z: [34mdebug[39m: No user with given email detected creating new user
+2021-12-06T06:11:53.591Z: [34mdebug[39m: Password hashed
+2021-12-06T06:11:53.591Z: [34mdebug[39m: Saving user signup data
+2021-12-06T06:11:54.319Z: [34mdebug[39m: User created succesfully
+2021-12-06T06:12:39.268Z: [34mdebug[39m: password matched, generating token
+2021-12-06T06:14:06.857Z: [34mdebug[39m: inside verify User for login middleware
+2021-12-06T06:14:06.861Z: [34mdebug[39m: token verified, looking for user
+2021-12-06T06:14:07.209Z: [34mdebug[39m: user found
+2021-12-06T06:14:37.155Z: [34mdebug[39m: password matched, generating token
+2021-12-08T06:35:15.029Z: [34mdebug[39m: password matched, generating token
+2021-12-08T06:40:03.784Z: [34mdebug[39m: inside verify User for login middleware
+2021-12-08T06:40:03.791Z: [34mdebug[39m: token verified, looking for user
+2021-12-08T06:40:04.117Z: [34mdebug[39m: user found
+2021-12-11T20:07:46.173Z: [34mdebug[39m: password matched, generating token
+2021-12-11T20:18:48.847Z: [34mdebug[39m: password matched, generating token
+2021-12-11T20:36:35.201Z: [34mdebug[39m: password matched, generating token
+2021-12-15T16:23:33.168Z: [34mdebug[39m: password matched, generating token
+2021-12-15T16:26:33.526Z: [34mdebug[39m: password matched, generating token
+2021-12-15T16:29:42.187Z: [34mdebug[39m: password matched, generating token
+2021-12-15T16:31:29.628Z: [34mdebug[39m: password matched, generating token
+2021-12-15T17:03:15.072Z: [34mdebug[39m: password matched, generating token
+2021-12-15T17:05:14.217Z: [34mdebug[39m: password matched, generating token
+2021-12-15T17:06:09.857Z: [34mdebug[39m: password matched, generating token
+2021-12-15T17:07:49.621Z: [34mdebug[39m: password matched, generating token
+2021-12-15T17:12:59.748Z: [34mdebug[39m: password matched, generating token
+2021-12-15T17:14:16.799Z: [34mdebug[39m: password matched, generating token
+2021-12-15T17:15:20.273Z: [34mdebug[39m: password matched, generating token
+2021-12-15T17:16:02.819Z: [34mdebug[39m: password matched, generating token
+2021-12-15T17:16:43.847Z: [34mdebug[39m: password matched, generating token
+2022-01-21T16:18:10.838Z: [34mdebug[39m: password matched, generating token
+2022-01-22T03:24:42.184Z: [34mdebug[39m: password matched, generating token
+2022-01-22T03:30:03.002Z: [34mdebug[39m: password matched, generating token
+2022-01-22T03:52:03.330Z: [34mdebug[39m: password matched, generating token
+2022-01-22T03:55:51.215Z: [34mdebug[39m: inside verify User for login middleware
+2022-01-22T03:55:51.228Z: [34mdebug[39m: token verified, looking for user
+2022-01-22T03:55:51.524Z: [34mdebug[39m: user found
+2022-01-22T04:26:31.152Z: [34mdebug[39m: password matched, generating token
+2022-01-29T12:28:59.570Z: [34mdebug[39m: password matched, generating token
+2022-01-29T12:30:48.136Z: [34mdebug[39m: Inside signup request
+2022-01-29T12:30:48.429Z: [34mdebug[39m: No user with given email detected creating new user
+2022-01-29T12:30:48.500Z: [34mdebug[39m: Password hashed
+2022-01-29T12:30:48.500Z: [34mdebug[39m: Saving user signup data
+2022-01-29T12:30:49.370Z: [34mdebug[39m: User created succesfully
+2022-01-29T12:31:02.540Z: [34mdebug[39m: password matched, generating token
+2022-01-29T12:31:32.692Z: [34mdebug[39m: password matched, generating token

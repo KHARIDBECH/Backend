@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const productSchema = mongoose.Schema({
+    userId:{
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     title:{
       type: 'string',
       required: true
