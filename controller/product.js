@@ -33,6 +33,7 @@ exports.getProduct = (req,res)=>{
     
     Product.find()
     .then((productData)=>{
+        console.log(productData)
         res.status(200).json(productData)
     })
     .catch((error)=>{
