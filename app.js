@@ -18,6 +18,9 @@ app.use(cors());
 console.log(path.join(__dirname, '/public/images'))
 app.use('/public', express.static(path.resolve('./public')));
 // app.use(express.static(path.join(__dirname, '/public/images')));
+app.get('/', (req, res) => {
+    res.send('Server running smoothlyy!');
+  });
 app.use(express.json());
 app.use('/developer',swaggerRoute);
 app.use("/api/auth", userRoutes);
