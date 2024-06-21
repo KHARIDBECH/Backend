@@ -5,7 +5,7 @@ exports.createProduct=(req,res,next)=>{
 const reqFiles = [];
     const url = req.protocol + '://' + req.get('host')
     req.files.map((item)=>{
-        reqFiles.push(url + '/public/images/' + item.filename);
+        reqFiles.push('/public/images/' + item.filename);
     })
 let dateId = new Date();
 let id = String(dateId.getTime());
