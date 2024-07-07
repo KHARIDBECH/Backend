@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const logger = require('../utils/logger')
 const HttpStatus = require('http-status-codes');
 require('dotenv').config()
-require('dotenv').config();
+
 const apiUtils = require('../utils/apiUtils');
 const globalConstant = require('../utils/globalConstant');
 exports.signup = (req, res) => {
