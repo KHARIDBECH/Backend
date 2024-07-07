@@ -37,7 +37,7 @@ const errorHandler = error => {
 };
 
 const server = http.createServer(app);
-
+const io = require('socket.io')(server);
 server.on('error', errorHandler);
 server.on('listening', () => {
   const address = server.address();
