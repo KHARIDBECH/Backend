@@ -392,3 +392,7 @@
 2024-06-16T07:22:28.418Z: [34mdebug[39m: token verified, looking for user
 2024-06-16T07:22:28.716Z: [34mdebug[39m: user found
 2024-06-21T17:10:53.373Z: [34mdebug[39m: password matched, generating token
+2024-07-07T12:24:50.122Z: [34mdebug[39m: password matched, generating token
+2024-07-07T12:27:08.211Z: [34mdebug[39m: inside verify User for login middleware
+2024-07-07T12:27:08.214Z: [34mdebug[39m: token verified, looking for user
+2024-07-07T12:27:08.571Z: [34mdebug[39m: user found
