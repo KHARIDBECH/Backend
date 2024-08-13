@@ -17,7 +17,7 @@ tags:
 schemes:
 - "http"
 paths:
-  /auth/signup:
+  /users/signup:
     post:
       tags:
         - 'default'

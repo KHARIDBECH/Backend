@@ -23,8 +23,8 @@ app.get('/', (req, res) => {
   });
 app.use(express.json());
 app.use('/developer',swaggerRoute);
-app.use("/api/auth", userRoutes);
-app.use("/api/stuff", productRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/product", productRoutes);
 app.use("/api/chatConvo", conversationRoutes);
 app.use("/api/chatMessages", messageRoutes);
 mongoConnect(); //Mongo connection

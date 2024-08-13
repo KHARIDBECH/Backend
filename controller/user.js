@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const Ad = require('../models/product');
 const jwt = require('jsonwebtoken');
 const logger = require('../utils/logger')
 const HttpStatus = require('http-status-codes');
 require('dotenv').config()
-require('dotenv').config();
 const apiUtils = require('../utils/apiUtils');
 const globalConstant = require('../utils/globalConstant');
 exports.signup = (req, res) => {
@@ -98,3 +98,32 @@ exports.getUser = (req, res) => {
             res.status(HttpStatus.BAD_REQUEST)
         })
 }
+
+
+exports.getAdsByUserId = async (req, res) => {
+    const { userId } = req.params;
+
+    const page = parseInt(req.query.page) || 1; // Default to page 1 if not specified
+    const limit = 5; // Number of ads per page
+    const skip = (page - 1) * limit;
+    console.log(userId)
+    try {
+        const ads = await Ad.find({ postedBy: userId })
+            .skip(skip)
+            .limit(limit)
+            .select('title price images postedDate');
+
+        const totalAds = await Ad.countDocuments({ postedBy: userId });
+        const totalPages = Math.ceil(totalAds / limit);
+        res.status(200).json({
+            ads,
+            pagination: {
+              currentPage: page,
+              totalPages,
+              totalAds,
+            },
+          });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};

@@ -30,8 +30,9 @@ exports.createProduct = async (req, res) => {
             images.push(file_data);
         }
 
+
         // Create and save product (optional: destructuring assignment)
-       
+
         const user = req.user;
         const newProduct = new Ad({
             title,
@@ -39,9 +40,11 @@ exports.createProduct = async (req, res) => {
             price,
             category,
             location,
-            postedBy:user[globalConstant.UNDERSCOREID],
-            images: images.length > 0 ? images : undefined, // Set image only if images exist
+            postedBy: user[globalConstant.UNDERSCOREID],
+            images: images.length > 0 ? images : undefined,
+            // Set image only if images exist
         });
+
         const productResponse = await newProduct.save();
 
         res.status(201).json({ productResponse, message: 'Product created successfully!' });
@@ -49,7 +52,7 @@ exports.createProduct = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Internal server error. Please try again later.' });
     }
-    
+
 }
 
 
@@ -59,7 +62,6 @@ exports.getProduct = (req, res) => {
 
     Ad.find()
         .then((productData) => {
-            console.log(productData)
             res.status(200).json(productData)
         })
         .catch((error) => {
@@ -69,17 +71,18 @@ exports.getProduct = (req, res) => {
 exports.getProductDetail = async (req, res) => {
 
 
-    try{
-
-        const product = await Ad.findById(req.params.itemid).populate('postedBy','firstName lastName')
-        if(!product){
+    try {
+        const product = await Ad.findById(req.params.itemid).populate('postedBy', 'firstName lastName')
+        if (!product) {
             return res.status(404).json({ message: 'Product not found' })
         }
-        console.log(product)
+      
         res.status(200).json(product)
     }
-    catch(err){
+    catch (err) {
         res.status(500).json(err)
     }
-    
+
 }
+
+
