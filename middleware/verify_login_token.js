@@ -15,7 +15,6 @@ const verify_login_token= async(req,res,next)=>{
     }
     try{
         const payload = await  apiUtils.verifyAccessToken(token,process.env.TOKEN_SECRET);
-        console.log(payload)
         req.user = await User.findById({_id:payload.userId}).select('-password');
         next();
     }

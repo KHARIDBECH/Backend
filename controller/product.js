@@ -3,11 +3,7 @@ const globalConstant = require('../utils/globalConstant')
 
 
 exports.createProduct = async (req, res) => {
-    console.log(req.body)
-
     const { title, description, price, category, location } = req.body;
-    console.log(location)
-
     try {
         // Validate image upload
         if (!req.files || req.files.length === 0) {
@@ -61,12 +57,12 @@ exports.createProduct = async (req, res) => {
 exports.getProduct = (req, res) => {
 
     Ad.find()
-        .then((productData) => {
-            res.status(200).json(productData)
-        })
-        .catch((error) => {
-            res.status(400).json({ error: error })
-        })
+    .then((productData) => {
+        res.status(200).json(productData);
+    })
+    .catch((error) => {
+        res.status(400).json({ error: error.message });
+    });
 }
 exports.getProductDetail = async (req, res) => {
 
@@ -86,3 +82,13 @@ exports.getProductDetail = async (req, res) => {
 }
 
 
+exports.getAllCategories = async (req, res) => {
+    const {category} = req.params
+    try {
+        const categories = await Ad.find({category:{ $regex: category, $options: 'i' }})
+        res.json(categories);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}

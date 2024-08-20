@@ -8,6 +8,6 @@ const verify_login_token = require('../middleware/verify_login_token');
 
 router.post('/ad',verify_login_token,upload.array('images',6),productCtrl.createProduct);
 router.get('/ad',productCtrl.getProduct);
-
 router.get('/itemdetail/:itemid',productCtrl.getProductDetail);
+router.get('/:category',productCtrl.getAllCategories);
 module.exports = router;

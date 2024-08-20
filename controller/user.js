@@ -78,7 +78,6 @@ exports.verify = (req, res) => {
     const authHeader = req.headers['authorization'];
     const bearerToken = authHeader.split(' ')
     const token = bearerToken[1];
-    // console.log(req.user)
     apiUtils.verifyAccessToken(token, process.env.TOKEN_SECRET)
         .then((result) => {
             res.status(HttpStatus.OK).json(result);
