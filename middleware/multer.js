@@ -22,9 +22,10 @@ const upload = multer({
             // Generate a unique identifier
             const uniqueId = uuidv4(); // Generate a unique ID
             const sanitizedFileName = file.originalname.toLowerCase()
-                .replace(/[^a-z0-9.]+/g, '-') // Replace non-alphanumeric characters with hyphens
-                .replace(/^-+|-+$/g, '') // Remove leading and trailing hyphens
-                .trim(); // Trim whitespace
+            .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with hyphens
+            .replace(/^-+|-+$/g, '') // Remove leading and trailing hyphens
+            .replace(/-+(\.[^.]+$)/, '$1') // Remove trailing hyphens before the file extension
+            .trim();
             // Construct the final file name
             const fileName = `Ad/${uniqueId}-${sanitizedFileName}`;
             // Call the callback with the generated file name
@@ -41,4 +42,4 @@ const upload = multer({
     },
     limits: { fileSize: 5 * 1024 * 1024 } // 5MB file size limit
 });
-module.exports = upload;
+module.exports = {upload,s3};

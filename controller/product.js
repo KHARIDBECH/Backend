@@ -1,6 +1,7 @@
 const Ad = require('../models/product');
 const globalConstant = require('../utils/globalConstant')
-
+const {s3} = require('../middleware/multer');
+const { DeleteObjectCommand } = require('@aws-sdk/client-s3')
 
 exports.createProduct = async (req, res) => {
     const { title, description, price, category, location } = req.body;
@@ -13,7 +14,7 @@ exports.createProduct = async (req, res) => {
         // Extract image data and handle potential errors
         const images = [];
         for (const file of req.files) {
-
+           
             const file_data = {
                 filename: file.key,
                 url: file.location // Assuming 'location' holds the S3 URL returned by multer-s3
@@ -91,4 +92,63 @@ exports.getAllCategories = async (req, res) => {
         console.error('Error fetching categories:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
+}
+
+
+exports.getProductDetail = async (req, res) => {
+
+
+    try {
+        const product = await Ad.findById(req.params.itemid).populate('postedBy', 'firstName lastName')
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' })
+        }
+      
+        res.status(200).json(product)
+    }
+    catch (err) {
+        res.status(500).json(err)
+    }
+
+}
+
+exports.deleteProduct = async (req, res) => 
+    {
+        const adId = req.params.id; // Get the ad ID from the request parameters
+        const userId = req.user.id; // Get the authenticated user's ID
+    
+        try {
+            // Find the ad by ID
+            const ad = await Ad.findById(adId);
+            if (!ad) {
+                return res.status(404).json({ message: 'Ad not found' });
+            }
+    
+            // Check if the ad belongs to the authenticated user
+            if (ad.postedBy.toString() !== userId) {
+                return res.status(403).json({ message: 'Forbidden: You do not have permission to delete this ad.' });
+            }
+    
+            // Delete images from S3
+            const deletePromises = ad.images.map(imageKey => {
+            
+                const params = {
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Key: imageKey.filename,
+                };
+                 const command = new DeleteObjectCommand(params);
+                return s3.send(command); ;
+            });
+    
+            // Wait for all images to be deleted
+            await Promise.all(deletePromises);
+    
+            // Delete the ad from the database
+            await Ad.findByIdAndDelete(adId);
+    
+            res.status(200).json({ message: 'Ad deleted successfully' });
+        } catch (error) {
+            console.error("Error deleting ad:", error);
+            res.status(500).json({ message: 'Error deleting ad' });
+        }
 }
