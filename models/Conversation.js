@@ -8,7 +8,7 @@ const ConversationSchema = mongoose.Schema(
     },
     product: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product', // Reference to the Product model
+      ref: 'Ad', // Reference to the Product model
       required: true,
     },
   },
