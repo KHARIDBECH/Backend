@@ -1,5 +1,5 @@
+const logger = require('. ./utils/logger');
 const Joi = require('joi');
-const logger = require('../utils/logger');
 const conversation = require('../models/conversation');
 const message = require('../models/message');
 const ad = require('../models/product');
