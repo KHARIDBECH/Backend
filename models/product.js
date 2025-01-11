@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
+import mongoose from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 
 
 
@@ -50,4 +50,4 @@ const AdSchema = new mongoose.Schema({
 
 AdSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('Ad', AdSchema);
+export default mongoose.model('Ad', AdSchema);

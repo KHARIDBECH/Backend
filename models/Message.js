@@ -1,15 +1,18 @@
-const mongoose = require('mongoose');
-// const uniqueValidator = require('mongoose-unique-validator');
+import mongoose from 'mongoose';
+// import uniqueValidator from 'mongoose-unique-validator';
 
 const MessageSchema = mongoose.Schema({
    conversationId:{
        type:String,
+       required:true
    },
-   sender:{
-       type:String
+   senderId:{
+       type:String ,
+       required:true
    },
    text:{
-       type:String
+       type:String,
+       required:true
    }
    
 },{timestamps:true});
@@ -17,5 +20,5 @@ const MessageSchema = mongoose.Schema({
 
 // productSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('Message',MessageSchema); 
+export default mongoose.model('Message',MessageSchema); 
 	

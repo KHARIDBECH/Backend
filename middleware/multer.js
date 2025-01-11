@@ -1,11 +1,12 @@
-require('dotenv').config(); // Load environment variables
-const { S3Client } = require('@aws-sdk/client-s3');
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const { v4: uuidv4 } = require('uuid');
+import { S3Client } from '@aws-sdk/client-s3';
+import multer from 'multer';
+import multerS3 from 'multer-s3';
+import { v4 as uuidv4 } from 'uuid';
+import dotenv from 'dotenv';
+dotenv.config(); // Load environment variables
 
 // Configure the S3 client
-const s3 = new S3Client({
+export const s3 = new S3Client({
     region: process.env.AWS_REGION,
     credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -14,7 +15,7 @@ const s3 = new S3Client({
 });
 
 // Configure multer with S3
-const upload = multer({
+export const upload = multer({
     storage: multerS3({
         s3: s3,
         bucket: process.env.AWS_BUCKET_NAME, // Adjust according to your needs
@@ -42,4 +43,3 @@ const upload = multer({
     },
     limits: { fileSize: 5 * 1024 * 1024 } // 5MB file size limit
 });
-module.exports = { upload, s3 };

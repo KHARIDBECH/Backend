@@ -1,9 +1,10 @@
 
-const apiUtils = require('../utils/apiUtils');
-const { StatusCodes } = require('http-status-codes');
-const User = require('../models/user');
-const logger = require("../utils/logger");
-require('dotenv').config()
+import apiUtils from '../utils/apiUtils.js';
+import { StatusCodes } from 'http-status-codes';
+import User from '../models/user.js';
+import logger from '../utils/logger.js';
+import dotenv from 'dotenv';
+dotenv.config()
 
 
 const verify_login_token = async (req, res, next) => {
@@ -24,4 +25,4 @@ const verify_login_token = async (req, res, next) => {
 
 }
 
-module.exports = verify_login_token;
+export default verify_login_token;

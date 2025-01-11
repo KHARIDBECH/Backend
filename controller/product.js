@@ -1,10 +1,10 @@
+import Ad from '../models/product.js';
+// import { UNDERSCOREID } from '../utils/globalConstant.js'; // Ensure to add .js extension
+import {  s3 } from '../middleware/multer.js'; // Ensure to add .js extension
+import { DeleteObjectCommand } from '@aws-sdk/client-s3';
+import logger from '../utils/logger.js'; // Ensure to add .js extension
 
-const ad = require('../models/product');
-const globalConstant = require('../utils/globalConstant')
-const {s3} = require('../middleware/multer');
-const { DeleteObjectCommand } = require('@aws-sdk/client-s3');
-const logger = require('../utils/logger');
-exports.createProduct = async (req, res) => {
+export const createProduct = async (req, res) => {
     const { title, description, price, category, location } = req.body;
     try {
         // Validate image upload
@@ -32,7 +32,7 @@ exports.createProduct = async (req, res) => {
         // Create and save product (optional: destructuring assignment)
 
         const user = req.user;
-        const newProduct = new ad({
+        const newProduct = new Ad({
             title,
             description,
             price,
@@ -57,8 +57,7 @@ exports.createProduct = async (req, res) => {
 
 
 
-
-exports.getProduct = async (req, res) => {
+export const getProduct = async (req, res) => {
     const userId = req.user.id;
 
     if (!userId) {
@@ -70,7 +69,7 @@ exports.getProduct = async (req, res) => {
         logger.info("Fetching products not posted by user:", userId);
 
         // Fetch products where the postedBy field is not equal to the user ID
-        const productData = await ad.find({ postedBy: { $ne: userId } });
+        const productData = await Ad.find({ postedBy: { $ne: userId } });
 
         if (!productData.length) {
             logger.info("No products found not posted by user:", userId);
@@ -85,11 +84,11 @@ exports.getProduct = async (req, res) => {
     }
 };
 
-exports.getProductDetail = async (req, res) => {
+export const getProductDetail = async (req, res) => {
 
 
     try {
-        const product = await ad.findById(req.params.itemid).populate('postedBy', 'firstName lastName')
+        const product = await Ad.findById(req.params.itemid).populate('postedBy', 'firstName lastName')
         if (!product) {
             return res.status(404).json({ message: 'Product not found' })
         }
@@ -103,10 +102,10 @@ exports.getProductDetail = async (req, res) => {
 }
 
 
-exports.getAllCategories = async (req, res) => {
+export const getAllCategories = async (req, res) => {
     const {category} = req.params
     try {
-        const categories = await ad.find({category:{ $regex: category, $options: 'i' }})
+        const categories = await Ad.find({category:{ $regex: category, $options: 'i' }})
         res.json(categories);
     } catch (error) {
         console.error('Error fetching categories:', error);
@@ -115,31 +114,16 @@ exports.getAllCategories = async (req, res) => {
 }
 
 
-exports.getProductDetail = async (req, res) => {
 
 
-    try {
-        const product = await ad.findById(req.params.itemid).populate('postedBy', 'firstName lastName')
-        if (!product) {
-            return res.status(404).json({ message: 'Product not found' })
-        }
-      
-        res.status(200).json(product)
-    }
-    catch (err) {
-        res.status(500).json(err)
-    }
-
-}
-
-exports.deleteProduct = async (req, res) => 
+export const deleteProduct = async (req, res) => 
     {
         const adId = req.params.id; // Get the ad ID from the request parameters
         const userId = req.user.id; // Get the authenticated user's ID
     
         try {
             // Find the ad by ID
-            const ad = await ad.findById(adId);
+            const ad = await Ad.findById(adId);
             if (!ad) {
                 return res.status(404).json({ message: 'Ad not found' });
             }

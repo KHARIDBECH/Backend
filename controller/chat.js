@@ -1,9 +1,10 @@
 
-const message = require('../models/message');
-const conversation = require('../models/conversation');
-const ad = require('../models/product');
+import Message from '../models/message.js';
+import Conversation from '../models/conversation.js';
+import Ad from '../models/product.js';
+import logger from '../utils/logger.js';
 // Schemas for validation
-const Joi = require('joi');
+import Joi from 'joi';
 const createConvoSchema = Joi.object({
     senderId: Joi.string().required(),
     receiverId: Joi.string().required(),
@@ -18,7 +19,7 @@ const addMessageSchema = Joi.object({
 });
 
 // Conversation start
-exports.createConvo = async (req, res) => {
+export const createConvo = async (req, res) => {
     const { senderId, receiverId, productId } = req.body;
 
     // Validate request payload
@@ -30,7 +31,7 @@ exports.createConvo = async (req, res) => {
 
     try {
         // Ensure the product exists
-        const product = await ad.findById(productId);
+        const product = await Ad.findById(productId);
         if (!product) {
             logger.warn("Product not found with ID:", productId);
             return res.status(404).json({ message: "Product not found." });
@@ -48,7 +49,7 @@ exports.createConvo = async (req, res) => {
         }
 
         // Create a new conversation
-        const newConversation = new conversation({
+        const newConversation = new Conversation({
             members: [senderId, receiverId],
             product: productId,
         });
@@ -62,14 +63,14 @@ exports.createConvo = async (req, res) => {
     }
 };
 
-exports.getConvo = async (req, res) => {
+export const getConvo = async (req, res) => {
     if (!req.params.userId) {
         logger.warn("Validation error in getConvo: Missing userId");
         return res.status(400).json({ message: "userId is required." });
     }
 
     try {
-        const conversation = await conversation.find({
+        const conversation = await Conversation.find({
             members: { $in: [req.params.userId] },
         });
 
@@ -87,14 +88,14 @@ exports.getConvo = async (req, res) => {
 };
 
 // Add Message routes logic
-exports.addMessage = async (req, res) => {
+export const addMessage = async (req, res) => {
     const { error } = addMessageSchema.validate(req.body);
     if (error) {
         logger.warn("Validation error in addMessage:", error.details[0].message);
         return res.status(400).json({ message: error.details[0].message });
     }
-
-    const newMessage = new message(req.body);
+    console.log(req.body);
+    const newMessage = new Message(req.body);
 
     try {
         const savedMessage = await newMessage.save();
@@ -107,14 +108,14 @@ exports.addMessage = async (req, res) => {
 };
 
 // Get message routes logic
-exports.getMessage = async (req, res) => {
+export const getMessage = async (req, res) => {
     if (!req.params.conversationId) {
         logger.warn("Validation error in getMessage: Missing conversationId");
         return res.status(400).json({ message: "conversationId is required." });
     }
 
     try {
-        const messages = await message.find({ conversationId: req.params.conversationId });
+        const messages = await Message.find({ conversationId: req.params.conversationId });
 
         if (!messages || messages.length === 0) {
             logger.warn(`No messages found for conversationId: ${req.params.conversationId}`);

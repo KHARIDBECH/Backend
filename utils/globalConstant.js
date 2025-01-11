@@ -1,5 +1,3 @@
-module.exports={
-    SALT_ROUNDS:10,
-    TOKEN:'access-token',
-    UNDERSCOREID:'_id'
-}
+export const SALT_ROUNDS = 10;
+export const TOKEN = 'access-token';
+export const UNDERSCOREID = '_id';

@@ -1,6 +1,6 @@
 
-const http = require('http');
-const app = require('./app');
+import http from 'http';
+import app from './app.js';
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -13,7 +13,7 @@ const normalizePort = val => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '5000');
+const port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 
 const errorHandler = error => {
@@ -37,11 +37,12 @@ const errorHandler = error => {
 };
 
 const server = http.createServer(app);
-const io = require('socket.io')(server, {
+import { Server } from 'socket.io';
+const io = new Server(server, {
   cors: {
-      origin: '*', // Allow all origins
-      methods: ['GET', 'POST'], // Specify allowed methods
-      credentials: true // Allow credentials if needed
+    origin: '*', // Allow all origins
+    methods: ['GET', 'POST'], // Specify allowed methods
+    credentials: true // Allow credentials if needed
   }
 });
 
@@ -49,34 +50,34 @@ let users = [];
 
 // Handle user connection
 io.on('connection', (socket) => {
-    console.log('A user connected:', socket.id);
+  console.log('A user connected:', socket.id);
 
-    // Add user to the users array
-    socket.on('addUser', (userId) => {
-        if (!users.some(user => user.userId === userId)) {
-            users.push({ userId, socketId: socket.id });
-        }
-        console.log('Connected users:', users);
-    });
+  // Add user to the users array
+  socket.on('addUser', (userId) => {
+    if (!users.some(user => user.userId === userId)) {
+      users.push({ userId, socketId: socket.id });
+    }
+    console.log('Connected users:', users);
+  });
 
-    // Handle incoming messages
-    socket.on('sendMessage', ({ senderId, receiverId, text }) => {
-        const receiver = users.find(user => user.userId === receiverId);
-        if (receiver) {
-            // Emit the message to the receiver's socket
-            io.to(receiver.socketId).emit('getMessage', {
-                senderId,
-                text,
-            });
-        }
-    });
+  // Handle incoming messages
+  socket.on('sendMessage', ({ senderId, receiverId, text }) => {
+    const receiver = users.find(user => user.userId === receiverId);
+    if (receiver) {
+      // Emit the message to the receiver's socket
+      io.to(receiver.socketId).emit('getMessage', {
+        senderId,
+        text,
+      });
+    }
+  });
 
-    // Handle user disconnection
-    socket.on('disconnect', () => {
-        console.log('A user disconnected:', socket.id);
-        // Remove user from the users array
-        users = users.filter(user => user.socketId !== socket.id);
-    });
+  // Handle user disconnection
+  socket.on('disconnect', () => {
+    console.log('A user disconnected:', socket.id);
+    // Remove user from the users array
+    users = users.filter(user => user.socketId !== socket.id);
+  });
 });
 
 server.on('error', errorHandler);

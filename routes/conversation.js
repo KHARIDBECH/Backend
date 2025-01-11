@@ -1,9 +1,9 @@
-const express = require('express');
+import express from 'express';
+import { createConvo, getConvo, getMessage } from '../controller/chat.js';
 const router = express.Router();
-const chatCtrl = require('../controller/chat');
 
 
-router.post('/',chatCtrl.createConvo);
-router.get('/:userId',chatCtrl.getConvo);
+router.post('/',createConvo);
+router.get('/:userId',getConvo);
 
-module.exports = router;
+export default router;

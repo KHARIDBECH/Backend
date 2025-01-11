@@ -1,8 +1,10 @@
-require('dotenv').config();
-const mongoose=require('mongoose');
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+dotenv.config();
+
 const URI=process.env.MONGO_URI;
 
-exports.mongoConnect=()=>{
+export const mongoConnect=()=>{
     mongoose.connect(URI,{useFindAndModify:false,useNewUrlParser:true,useUnifiedTopology:true})
     .then(()=>{
         console.log('Successfully connected to DB');
@@ -13,7 +15,7 @@ exports.mongoConnect=()=>{
       });
 }
 
-exports.mongoDisConnect=()=>{
+export const mongoDisConnect=()=>{
     mongoose.disconnect()
     .then(()=>{
         console.log('DB disconnected');

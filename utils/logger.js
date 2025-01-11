@@ -1,4 +1,6 @@
-const { createLogger, format, transports } = require("winston");
+import pkg from 'winston';
+const { createLogger, format, transports } = pkg;
+
 const { colorize, printf, combine, timestamp } = format;
 
 const myFormat = printf(info => {
@@ -16,19 +18,15 @@ const levels = {
     silly: 6
 };
 
-// Determine the current environment
-const isDevelopment = process.env.NODE_ENV === 'development';
-
 const logger = createLogger({
     levels,
     format: combine(timestamp(), colorize(), myFormat),
     transports: [
-        // Console transport only in development
-        ...(isDevelopment ? [new transports.Console()] : []),
+        new transports.Console(),
         new transports.File({
             filename: './logs/development.log'
         })
     ]
 });
 
-module.exports = logger;
+export default logger;

@@ -1,13 +1,15 @@
-require('dotenv').config();
-const bcrypt = require('bcrypt');
-const User = require('../models/user');
-const Ad = require('../models/product');
-const { StatusCodes } = require('http-status-codes');
-const logger = require('../utils/logger');
-const apiUtils = require('../utils/apiUtils');
-const globalConstant = require('../utils/globalConstant');
+import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
+import User from '../models/user.js';
+import Ad from '../models/product.js';
+import { StatusCodes } from 'http-status-codes';
+import logger from '../utils/logger.js';
+import apiUtils from '../utils/apiUtils.js';
+// import { SALT_ROUNDS, TOKEN, UNDERSCOREID } from '../utils/globalConstant.js';
+dotenv.config();
 
-exports.signup = async (req, res) => {
+
+export const signup = async (req, res) => {
     logger.debug('Inside signup request');
 
     try {
@@ -37,7 +39,7 @@ exports.signup = async (req, res) => {
     }
 };
 
-exports.signin = async (req, res) => {
+export const signin = async (req, res) => {
     logger.debug('Inside signin request');
 
     try {
@@ -75,7 +77,7 @@ exports.signin = async (req, res) => {
     }
 };
 
-exports.verify = async (req, res) => {
+export const verify = async (req, res) => {
     logger.debug('Inside verify user API');
 
     try {
@@ -97,7 +99,7 @@ exports.verify = async (req, res) => {
     }
 };
 
-exports.getUser = async (req, res) => {
+export const getUser = async (req, res) => {
     logger.debug('Getting the user');
 
     try {
@@ -123,7 +125,7 @@ exports.getUser = async (req, res) => {
     }
 };
 
-exports.getAdsByUserId = async (req, res) => {
+export const getAdsByUserId = async (req, res) => {
     logger.debug('Inside getAdsByUserId API');
 
     try {

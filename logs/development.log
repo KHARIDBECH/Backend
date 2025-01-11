@@ -1471,3 +1471,76 @@
 2025-01-11T12:33:02.803Z: [34mdebug[39m: Getting the user
 2025-01-11T12:33:03.114Z: [32minfo[39m: User fetched successfully
 2025-01-11T12:33:04.096Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:11:14.971Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T14:11:15.316Z: [32minfo[39m: Fetching products not posted by user:
+2025-01-11T14:11:15.622Z: [32minfo[39m: Found 4 products not posted by user:
+2025-01-11T14:11:54.410Z: [31merror[39m: Error retrieving conversations: Cannot access 'conversation' before initialization
+2025-01-11T14:12:00.251Z: [31merror[39m: Error retrieving conversations: Cannot access 'conversation' before initialization
+2025-01-11T14:12:05.392Z: [31merror[39m: Error retrieving conversations: Cannot access 'conversation' before initialization
+2025-01-11T14:12:51.919Z: [31merror[39m: Error retrieving conversations: Cannot access 'conversation' before initialization
+2025-01-11T14:14:02.040Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:14:02.062Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T14:14:02.396Z: [34mdebug[39m: Getting the user
+2025-01-11T14:14:02.750Z: [32minfo[39m: User fetched successfully
+2025-01-11T14:14:15.343Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:14:17.306Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:14:17.316Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T14:14:17.592Z: [34mdebug[39m: Getting the user
+2025-01-11T14:14:17.875Z: [32minfo[39m: User fetched successfully
+2025-01-11T14:14:23.720Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:14:23.985Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T14:14:24.244Z: [34mdebug[39m: Getting the user
+2025-01-11T14:14:24.515Z: [32minfo[39m: User fetched successfully
+2025-01-11T14:14:25.032Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:14:28.988Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:14:31.117Z: [32minfo[39m: Message added successfully:
+2025-01-11T14:14:35.689Z: [32minfo[39m: Message added successfully:
+2025-01-11T14:14:43.547Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:14:43.561Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T14:14:43.864Z: [34mdebug[39m: Getting the user
+2025-01-11T14:14:44.153Z: [32minfo[39m: User fetched successfully
+2025-01-11T14:14:46.124Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:14:49.511Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:14:49.520Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T14:14:49.793Z: [34mdebug[39m: Getting the user
+2025-01-11T14:14:50.073Z: [32minfo[39m: User fetched successfully
+2025-01-11T14:14:51.958Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:20:56.307Z: [32minfo[39m: Message added successfully:
+2025-01-11T14:21:16.812Z: [32minfo[39m: Message added successfully:
+2025-01-11T14:22:09.147Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:22:09.160Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T14:22:09.479Z: [34mdebug[39m: Getting the user
+2025-01-11T14:22:09.823Z: [32minfo[39m: User fetched successfully
+2025-01-11T14:22:10.312Z: [33mwarn[39m: No messages found for conversationId: 67825029854db73d5889c206
+2025-01-11T14:22:35.465Z: [32minfo[39m: Message added successfully:
+2025-01-11T14:25:13.037Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:25:13.054Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T14:25:13.336Z: [34mdebug[39m: Getting the user
+2025-01-11T14:25:13.667Z: [32minfo[39m: User fetched successfully
+2025-01-11T14:25:15.741Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:25:19.457Z: [31merror[39m: Error adding message: Message validation failed: sender: Path `sender` is required.
+2025-01-11T14:25:40.993Z: [32minfo[39m: Message added successfully:
+2025-01-11T14:25:54.464Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:25:54.475Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T14:25:54.782Z: [34mdebug[39m: Getting the user
+2025-01-11T14:25:55.100Z: [32minfo[39m: User fetched successfully
+2025-01-11T14:25:57.341Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:42:25.980Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:42:26.248Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:42:26.523Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:42:26.790Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:45:52.451Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:45:52.463Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:45:53.250Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:45:53.257Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:45:57.961Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:45:57.990Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T14:45:58.256Z: [34mdebug[39m: Getting the user
+2025-01-11T14:45:58.605Z: [32minfo[39m: User fetched successfully
+2025-01-11T14:46:00.203Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:47:14.037Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T14:47:14.921Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T14:47:15.251Z: [34mdebug[39m: Getting the user
+2025-01-11T14:47:15.543Z: [32minfo[39m: User fetched successfully
+2025-01-11T14:47:16.373Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T14:47:22.290Z: [32minfo[39m: Message added successfully:
