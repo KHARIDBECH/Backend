@@ -1,128 +1,162 @@
 const bcrypt = require('bcrypt');
-const User = require('../models/user');
-const Ad = require('../models/product');
+const User = require('../models/User');
+const Product = require('../models/Product');
 const jwt = require('jsonwebtoken');
-const logger = require('../utils/logger')
-const HttpStatus = require('http-status-codes');
-require('dotenv').config()
+const logger = require('../utils/logger');
+const { StatusCodes } = require('http-status-codes');
+require('dotenv').config();
 const apiUtils = require('../utils/apiUtils');
 const globalConstant = require('../utils/globalConstant');
-exports.signup = (req, res) => {
-    logger.debug('Inside signup request')
-    User.findOne({ email: req.body.email })
-        .then((user) => {
-            if (user) {
-                logger.debug("Error!! user already registered please login")
-                return res.status(HttpStatus.BAD_REQUEST).json(apiUtils.getResponseMessage(HttpStatus.BAD_REQUEST, 'User already Exist'))
-            }
-            logger.debug('No user with given email detected creating new user')
-            bcrypt.hash(req.body.password, globalConstant.SALT_ROUNDS)
-                .then(hash => {
-                    const user = new User({
-                        firstName: req.body.firstName,
-                        lastName: req.body.lastName,
-                        email: req.body.email,
-                        password: hash
-                    });
-                    logger.debug('Password hashed')
-                    logger.debug('Saving user signup data')
-                    user.save().then(() => {
-                        logger.debug("User created succesfully")
-                        res.status(HttpStatus.CREATED).json(apiUtils.getResponseMessage(HttpStatus.CREATED, 'User created Succesfully'))
 
-                    })
-                        .catch((err) => {
-                            logger.debug("Sorryy... something went wrong")
-                            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(HttpStatus.INTERNAL_SERVER_ERROR, err.message))
-                        })
+exports.signup = async (req, res) => {
+    logger.debug('Inside signup request');
 
-                })
+    try {
+        const { firstName, lastName, email, password } = req.body;
 
-        })
-        .catch((err) => {
-            logger.debug("Sorryy... Error occured something went wrong")
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(HttpStatus.INTERNAL_SERVER_ERROR, err))
-        })
-
-
-};
-
-exports.signin = (req, res, next) => {
-    User.findOne({ email: req.body.email }).then((user) => {
-        if (!user) {
-            return res.status(401).json({ error: new Error('User not found') })
+        if (!firstName || !lastName || !email || !password) {
+            logger.error('Validation error: Missing required fields');
+            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'Missing required fields'));
         }
-        bcrypt.compare(req.body.password, user.password)
-            .then((valid) => {
-                if (!valid) {
-                    return res.status(401).json({ error: new Error('Incorrect password') })
-                }
-                logger.debug('password matched, generating token')
-                const token = apiUtils.generateAccessToken({ userId: user._id }, process.env.TOKEN_SECRET)
-                const loginResponse = apiUtils.getResponseMessage(200, 'logged in successfully');
-                loginResponse['token'] = token;
-                loginResponse['firstName'] = user.firstName;
-                loginResponse['userId'] = user._id;
-                res.status(HttpStatus.OK).json(loginResponse);
 
-            })
-            .catch((error) => { res.status(500).json({ error: error }) })
-    })
-        .catch((error) => { res.status(500).json({ error: error }) })
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            logger.error('User already exists');
+            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'User already exists'));
+        }
 
+        logger.debug('No user with given email detected, creating new user');
+        const hashedPassword = await bcrypt.hash(password, globalConstant.SALT_ROUNDS);
+        const user = new User({ firstName, lastName, email, password: hashedPassword });
 
+        await user.save();
+        logger.info('User created successfully');
+        return res.status(StatusCodes.CREATED).json(apiUtils.getResponseMessage(StatusCodes.CREATED, 'User created successfully'));
+    } catch (error) {
+        logger.error(`Signup error: ${error.message}`);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(StatusCodes.INTERNAL_SERVER_ERROR, error.message));
+    }
 };
 
-exports.verify = (req, res) => {
-    logger.debug('inside verify user api')
-    const authHeader = req.headers['authorization'];
-    const bearerToken = authHeader.split(' ')
-    const token = bearerToken[1];
-    apiUtils.verifyAccessToken(token, process.env.TOKEN_SECRET)
-        .then((result) => {
-            res.status(HttpStatus.OK).json(result);
-        })
-        .catch((err) => {
-            res.status(HttpStatus.BAD_REQUEST).json({ error: new Error('Error occured') });
-        })
-}
+exports.signin = async (req, res) => {
+    logger.debug('Inside signin request');
 
-exports.getUser = (req, res) => {
-    const userId = req.query.userId;
-    User.find({ _id: userId }, { firstName: 1, lastName: 1, email: 1, _id: 0 })
-        .then((user) => {
-            res.status(HttpStatus.OK).json(user);
-        })
-        .catch((err) => {
-            res.status(HttpStatus.BAD_REQUEST)
-        })
-}
+    try {
+        const { email, password } = req.body;
 
+        if (!email || !password) {
+            logger.error('Validation error: Missing email or password');
+            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'Missing email or password'));
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            logger.error('User not found');
+            return res.status(StatusCodes.UNAUTHORIZED).json(apiUtils.getResponseMessage(StatusCodes.UNAUTHORIZED, 'User not found'));
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            logger.error('Incorrect password');
+            return res.status(StatusCodes.UNAUTHORIZED).json(apiUtils.getResponseMessage(StatusCodes.UNAUTHORIZED, 'Incorrect password'));
+        }
+
+        logger.info('Password matched, generating token');
+        const token = apiUtils.generateAccessToken({ userId: user._id }, process.env.TOKEN_SECRET);
+
+        const loginResponse = apiUtils.getResponseMessage(StatusCodes.OK, 'Logged in successfully');
+        loginResponse.token = token;
+        loginResponse.firstName = user.firstName;
+        loginResponse.userId = user._id;
+
+        return res.status(StatusCodes.OK).json(loginResponse);
+    } catch (error) {
+        logger.error(`Signin error: ${error.message}`);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(StatusCodes.INTERNAL_SERVER_ERROR, error.message));
+    }
+};
+
+exports.verify = async (req, res) => {
+    logger.debug('Inside verify user API');
+
+    try {
+        const authHeader = req.headers['authorization'];
+
+        if (!authHeader) {
+            logger.error('Authorization header missing');
+            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'Authorization header missing'));
+        }
+
+        const token = authHeader.split(' ')[1];
+        const verifiedData = await apiUtils.verifyAccessToken(token, process.env.TOKEN_SECRET);
+
+        logger.info('Token verified successfully');
+        return res.status(StatusCodes.OK).json(verifiedData);
+    } catch (error) {
+        logger.error(`Token verification error: ${error.message}`);
+        return res.status(StatusCodes.UNAUTHORIZED).json(apiUtils.getResponseMessage(StatusCodes.UNAUTHORIZED, 'Invalid or expired token'));
+    }
+};
+
+exports.getUser = async (req, res) => {
+    logger.debug('Inside getUser API');
+
+    try {
+        const { friendId } = req.params;
+
+        if (!friendId) {
+            logger.error('Validation error: Missing friendId');
+            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'Missing userId'));
+        }
+
+        const user = await User.findOne({ _id: friendId }, { firstName: 1, lastName: 1, email: 1 });
+        console.log(user)
+        if (!user) {
+            logger.error('User not found');
+            return res.status(StatusCodes.NOT_FOUND).json(apiUtils.getResponseMessage(StatusCodes.NOT_FOUND, 'User not found'));
+        }
+
+        logger.info('User fetched successfully');
+        return res.status(StatusCodes.OK).json(user);
+    } catch (error) {
+        logger.error(`Get user error: ${error.message}`);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(StatusCodes.INTERNAL_SERVER_ERROR, error.message));
+    }
+};
 
 exports.getAdsByUserId = async (req, res) => {
-    const { userId } = req.params;
+    logger.debug('Inside getAdsByUserId API');
 
-    const page = parseInt(req.query.page) || 1; // Default to page 1 if not specified
-    const limit = 5; // Number of ads per page
-    const skip = (page - 1) * limit;
-    console.log(userId)
     try {
-        const ads = await Ad.find({ postedBy: userId })
+        const { userId } = req.params;
+        const page = parseInt(req.query.page) || 1;
+        const limit = 5;
+        const skip = (page - 1) * limit;
+
+        if (!userId) {
+            logger.error('Validation error: Missing userId');
+            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'Missing userId'));
+        }
+
+        const ads = await Product.find({ postedBy: userId })
             .skip(skip)
             .limit(limit)
             .select('title price images postedDate');
 
-        const totalAds = await Ad.countDocuments({ postedBy: userId });
+        const totalAds = await Product.countDocuments({ postedBy: userId });
         const totalPages = Math.ceil(totalAds / limit);
-        res.status(200).json({
+
+        logger.info('Ads fetched successfully');
+        return res.status(StatusCodes.OK).json({
             ads,
             pagination: {
-              currentPage: page,
-              totalPages,
-              totalAds,
+                currentPage: page,
+                totalPages,
+                totalAds,
             },
-          });
+        });
     } catch (error) {
-        res.status(500).send(error);
+        logger.error(`Get ads error: ${error.message}`);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(StatusCodes.INTERNAL_SERVER_ERROR, error.message));
     }
 };

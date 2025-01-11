@@ -1,16 +1,16 @@
 require("dotenv").config();
 const path = require('path')
-
 const express = require("express");
 const { mongoConnect } = require("./utils/dbUtils");
-const app = express();
 const userRoutes = require("./routes/user");
 const productRoutes = require("./routes/product");
 const conversationRoutes = require("./routes/conversation");
 const messageRoutes = require("./routes/messages");
-const BodyParser = require("body-parser");
 const cors = require("cors");
 const swaggerRoute=require('./swagger/swagger');
+
+
+const app = express();
 app.use(cors());
 
   

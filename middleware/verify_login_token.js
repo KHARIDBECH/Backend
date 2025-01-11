@@ -1,7 +1,7 @@
 const globalConstant = require("../utils/globalConstant")
 const apiUtils=require('../utils/apiUtils');
 const {StatusCodes}=require('http-status-codes');
-const User=require('../models/user');
+const User=require('../models/User');
 const logger = require("../utils/logger");
 require('dotenv').config()
 

@@ -27,6 +27,7 @@ bower_components
 
 # Directory for uploaded files
 uploads
+public
 
 # Optional npm cache directory
 .npm
@@ -40,6 +41,7 @@ uploads
 *.sln
 *.sw?
 *.log
+*.logs
 
 # macOS
 .DS_Store

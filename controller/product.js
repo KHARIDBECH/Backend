@@ -1,8 +1,8 @@
-const Ad = require('../models/product');
+const Ad = require('../models/Product');
 const globalConstant = require('../utils/globalConstant')
 const {s3} = require('../middleware/multer');
 const { DeleteObjectCommand } = require('@aws-sdk/client-s3')
-
+const logger = require('../utils/logger')
 exports.createProduct = async (req, res) => {
     const { title, description, price, category, location } = req.body;
     try {
@@ -55,16 +55,35 @@ exports.createProduct = async (req, res) => {
 
 
 
-exports.getProduct = (req, res) => {
 
-    Ad.find()
-    .then((productData) => {
+
+exports.getProduct = async (req, res) => {
+    const userId = req.user.id;
+
+    if (!userId) {
+        logger.warn("Unauthorized access: Missing user ID.");
+        return res.status(401).json({ message: "Unauthorized access: User ID is required." });
+    }
+
+    try {
+        logger.info("Fetching products not posted by user:", userId);
+
+        // Fetch products where the postedBy field is not equal to the user ID
+        const productData = await Ad.find({ postedBy: { $ne: userId } });
+
+        if (!productData.length) {
+            logger.info("No products found not posted by user:", userId);
+            return res.status(404).json({ message: "No products available." });
+        }
+
+        logger.info(`Found ${productData.length} products not posted by user:`, userId);
         res.status(200).json(productData);
-    })
-    .catch((error) => {
-        res.status(400).json({ error: error.message });
-    });
-}
+    } catch (error) {
+        logger.error("Error fetching products:", error.message);
+        res.status(500).json({ message: "Failed to fetch products.", error: error.message });
+    }
+};
+
 exports.getProductDetail = async (req, res) => {
 
 

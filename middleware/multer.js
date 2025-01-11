@@ -27,7 +27,7 @@ const upload = multer({
             .replace(/-+(\.[^.]+$)/, '$1') // Remove trailing hyphens before the file extension
             .trim();
             // Construct the final file name
-            const fileName = `Ad/${uniqueId}-${sanitizedFileName}`;
+            const fileName = `Product/${uniqueId}-${sanitizedFileName}`;
             // Call the callback with the generated file name
             cb(null, fileName);
         }

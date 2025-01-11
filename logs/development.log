@@ -1169,3 +1169,289 @@
 2024-08-24T12:48:38.151Z: [34mdebug[39m: inside verify User for login middleware
 2024-08-24T12:50:28.405Z: [34mdebug[39m: inside verify User for login middleware
 2024-08-24T12:53:44.286Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-09T10:04:04.500Z: [34mdebug[39m: Inside signup request
+2025-01-09T10:04:04.888Z: [34mdebug[39m: No user with given email detected creating new user
+2025-01-09T10:04:05.069Z: [34mdebug[39m: Password hashed
+2025-01-09T10:04:05.070Z: [34mdebug[39m: Saving user signup data
+2025-01-09T10:04:05.893Z: [34mdebug[39m: User created succesfully
+2025-01-09T10:04:19.938Z: [34mdebug[39m: password matched, generating token
+2025-01-09T10:15:18.158Z: [34mdebug[39m: password matched, generating token
+2025-01-09T10:17:30.100Z: [34mdebug[39m: password matched, generating token
+2025-01-09T10:18:59.365Z: [34mdebug[39m: password matched, generating token
+2025-01-09T10:19:37.063Z: [34mdebug[39m: password matched, generating token
+2025-01-09T10:20:29.649Z: [34mdebug[39m: password matched, generating token
+2025-01-09T10:21:22.027Z: [34mdebug[39m: Inside signup request
+2025-01-09T10:21:22.382Z: [34mdebug[39m: No user with given email detected creating new user
+2025-01-09T10:21:22.590Z: [34mdebug[39m: Password hashed
+2025-01-09T10:21:22.592Z: [34mdebug[39m: Saving user signup data
+2025-01-09T10:21:23.536Z: [34mdebug[39m: User created succesfully
+2025-01-09T10:21:48.009Z: [34mdebug[39m: password matched, generating token
+2025-01-09T10:22:01.628Z: [34mdebug[39m: password matched, generating token
+2025-01-09T10:51:58.234Z: [34mdebug[39m: password matched, generating token
+2025-01-11T06:24:45.401Z: [34mdebug[39m: Inside signin request
+2025-01-11T06:24:45.676Z: [31merror[39m: User not found
+2025-01-11T06:25:46.563Z: [34mdebug[39m: Inside signin request
+2025-01-11T06:25:47.083Z: [31merror[39m: Incorrect password
+2025-01-11T06:26:18.038Z: [34mdebug[39m: Inside signin request
+2025-01-11T06:26:18.429Z: [31merror[39m: User not found
+2025-01-11T06:54:25.372Z: [34mdebug[39m: Inside signup request
+2025-01-11T06:54:25.779Z: [34mdebug[39m: No user with given email detected, creating new user
+2025-01-11T06:54:26.890Z: [32minfo[39m: User created successfully
+2025-01-11T07:20:41.667Z: [34mdebug[39m: Inside signup request
+2025-01-11T07:20:43.790Z: [34mdebug[39m: No user with given email detected, creating new user
+2025-01-11T07:20:44.923Z: [32minfo[39m: User created successfully
+2025-01-11T07:34:45.177Z: [34mdebug[39m: Inside signup request
+2025-01-11T07:34:45.672Z: [34mdebug[39m: No user with given email detected, creating new user
+2025-01-11T07:34:46.556Z: [32minfo[39m: User created successfully
+2025-01-11T07:35:23.145Z: [34mdebug[39m: Inside signin request
+2025-01-11T07:35:23.501Z: [31merror[39m: User not found
+2025-01-11T07:36:12.603Z: [34mdebug[39m: Inside signin request
+2025-01-11T07:36:13.001Z: [32minfo[39m: Password matched, generating token
+2025-01-11T07:39:20.138Z: [34mdebug[39m: Inside signin request
+2025-01-11T07:39:20.588Z: [32minfo[39m: Password matched, generating token
+2025-01-11T07:40:59.816Z: [34mdebug[39m: Inside signin request
+2025-01-11T07:41:00.462Z: [32minfo[39m: Password matched, generating token
+2025-01-11T07:52:13.605Z: [33mwarn[39m: Validation error in createConvo:
+2025-01-11T07:52:57.986Z: [33mwarn[39m: Validation error in createConvo:
+2025-01-11T07:54:14.215Z: [33mwarn[39m: Validation error in createConvo:
+2025-01-11T07:56:43.649Z: [32minfo[39m: Conversation created successfully:
+2025-01-11T07:56:44.416Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T07:56:44.448Z: [34mdebug[39m: Inside getUser API
+2025-01-11T07:56:44.455Z: [31merror[39m: Get user error: Cast to ObjectId failed for value "null" at path "_id" for model "User"
+2025-01-11T07:56:49.435Z: [33mwarn[39m: No messages found for conversationId: 6782243b7f54f4438c103183
+2025-01-11T07:57:39.809Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T07:57:39.838Z: [34mdebug[39m: Inside getUser API
+2025-01-11T07:57:39.843Z: [31merror[39m: Get user error: Cast to ObjectId failed for value "null" at path "_id" for model "User"
+2025-01-11T07:58:48.065Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T07:58:48.093Z: [34mdebug[39m: Inside getUser API
+2025-01-11T07:58:48.102Z: [31merror[39m: Get user error: Cast to ObjectId failed for value "null" at path "_id" for model "User"
+2025-01-11T08:03:07.445Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T08:15:38.059Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T08:15:52.571Z: [33mwarn[39m: No messages found for conversationId: 6782243b7f54f4438c103183
+2025-01-11T08:18:21.990Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T08:18:45.781Z: [32minfo[39m: Conversation created successfully:
+2025-01-11T08:18:46.701Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T08:18:48.292Z: [33mwarn[39m: No messages found for conversationId: 678229659edbb826b0fe4fa7
+2025-01-11T08:18:53.401Z: [33mwarn[39m: No messages found for conversationId: 6782243b7f54f4438c103183
+2025-01-11T08:18:58.987Z: [33mwarn[39m: No messages found for conversationId: 678229659edbb826b0fe4fa7
+2025-01-11T08:19:15.311Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T08:19:41.590Z: [32minfo[39m: Conversation created successfully:
+2025-01-11T08:19:42.207Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T09:37:30.099Z: [31merror[39m: Error creating conversation: Product is not defined
+2025-01-11T09:38:14.685Z: [32minfo[39m: Conversation created successfully:
+2025-01-11T09:38:15.168Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T09:46:48.496Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T09:47:37.544Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T09:47:54.456Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T09:48:19.453Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T09:48:19.474Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T09:49:00.275Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T09:49:07.819Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T09:49:22.964Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T09:58:48.183Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T09:58:48.532Z: [34mdebug[39m: Inside getUser API
+2025-01-11T09:58:48.533Z: [31merror[39m: Validation error: Missing userId
+2025-01-11T09:58:58.928Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T09:58:58.949Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T09:58:59.234Z: [34mdebug[39m: Inside getUser API
+2025-01-11T09:58:59.242Z: [31merror[39m: Validation error: Missing userId
+2025-01-11T10:00:30.401Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:00:30.426Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:00:30.853Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:00:30.854Z: [31merror[39m: Validation error: Missing friendId
+2025-01-11T10:01:16.128Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:01:16.154Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:01:16.435Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:01:16.770Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:02:17.394Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:02:17.410Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:02:17.673Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:02:17.957Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:02:46.925Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:02:46.947Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:02:47.225Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:02:47.504Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:03:39.409Z: [33mwarn[39m: No messages found for conversationId: 67823c06f7a8100bf0b645ea
+2025-01-11T10:04:02.448Z: [33mwarn[39m: No conversations found for userId: 677f9f152ac3804edc3fb62b
+2025-01-11T10:04:07.544Z: [33mwarn[39m: No conversations found for userId: 677f9f152ac3804edc3fb62b
+2025-01-11T10:04:28.539Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:04:28.563Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:04:28.904Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:04:29.224Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:04:47.265Z: [34mdebug[39m: Inside signin request
+2025-01-11T10:04:47.714Z: [32minfo[39m: Password matched, generating token
+2025-01-11T10:04:54.188Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:04:54.289Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:04:54.585Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:04:54.980Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:04:56.784Z: [33mwarn[39m: No messages found for conversationId: 67823c06f7a8100bf0b645ea
+2025-01-11T10:04:58.021Z: [33mwarn[39m: No messages found for conversationId: 67823c06f7a8100bf0b645ea
+2025-01-11T10:05:05.563Z: [33mwarn[39m: Validation error in addMessage:
+2025-01-11T10:05:09.684Z: [33mwarn[39m: Validation error in addMessage:
+2025-01-11T10:05:45.165Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:05:45.289Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:05:45.567Z: [33mwarn[39m: No messages found for conversationId: 67823c06f7a8100bf0b645ea
+2025-01-11T10:05:45.860Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:05:45.940Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:05:46.123Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:05:46.402Z: [33mwarn[39m: No messages found for conversationId: 67823c06f7a8100bf0b645ea
+2025-01-11T10:05:46.697Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:05:46.969Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:05:47.009Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:05:47.067Z: [33mwarn[39m: No messages found for conversationId: 67823c06f7a8100bf0b645ea
+2025-01-11T10:05:47.259Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:05:54.166Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:05:54.215Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:05:54.527Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:05:54.807Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:05:56.099Z: [33mwarn[39m: No messages found for conversationId: 67823c06f7a8100bf0b645ea
+2025-01-11T10:06:11.064Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:06:11.259Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:06:11.619Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:06:11.920Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:06:15.779Z: [33mwarn[39m: No messages found for conversationId: 67823c06f7a8100bf0b645ea
+2025-01-11T10:07:19.857Z: [33mwarn[39m: Validation error in addMessage:
+2025-01-11T10:09:41.680Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:09:41.683Z: [33mwarn[39m: No messages found for conversationId: 67823c06f7a8100bf0b645ea
+2025-01-11T10:09:42.315Z: [33mwarn[39m: No messages found for conversationId: 67823c06f7a8100bf0b645ea
+2025-01-11T10:09:42.318Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:09:48.252Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:09:48.277Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:09:48.584Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:09:48.929Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:09:55.124Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:09:55.325Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:09:55.758Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:09:56.076Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:10:44.956Z: [33mwarn[39m: No messages found for conversationId: 67823c06f7a8100bf0b645ea
+2025-01-11T10:10:50.158Z: [32minfo[39m: Message added successfully:
+2025-01-11T10:10:54.072Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T10:10:59.789Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:10:59.805Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:11:00.094Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:11:00.397Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:11:01.839Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T10:11:05.995Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:11:06.215Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:11:06.637Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:11:06.957Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:11:08.083Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T10:11:52.205Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:11:52.237Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:11:52.539Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:11:52.880Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:11:53.932Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T10:18:34.127Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:18:34.482Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:18:34.891Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:18:35.176Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:19:39.365Z: [34mdebug[39m: Inside signin request
+2025-01-11T10:19:39.761Z: [32minfo[39m: Password matched, generating token
+2025-01-11T10:19:44.677Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:19:44.692Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:19:45.066Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:19:45.354Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:19:46.996Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T10:20:46.419Z: [32minfo[39m: Conversation already exists:
+2025-01-11T10:20:46.869Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:20:46.880Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:20:47.148Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:20:47.441Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:20:55.434Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T10:21:31.561Z: [34mdebug[39m: Inside signin request
+2025-01-11T10:21:31.991Z: [32minfo[39m: Password matched, generating token
+2025-01-11T10:21:39.712Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:21:39.730Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:21:40.070Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:21:40.428Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:23:08.406Z: [34mdebug[39m: Inside signin request
+2025-01-11T10:23:08.769Z: [32minfo[39m: Password matched, generating token
+2025-01-11T10:23:12.024Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:23:12.390Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:23:12.988Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:23:20.650Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:23:20.958Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:23:21.511Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:26:54.143Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:26:54.516Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:26:55.070Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:27:24.183Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:27:24.548Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:27:25.112Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:27:45.389Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T10:27:45.416Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:27:45.711Z: [34mdebug[39m: Inside getUser API
+2025-01-11T10:27:45.995Z: [32minfo[39m: User fetched successfully
+2025-01-11T10:27:52.378Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:27:52.672Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:27:53.230Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:28:42.439Z: [34mdebug[39m: Inside signin request
+2025-01-11T10:28:42.841Z: [32minfo[39m: Password matched, generating token
+2025-01-11T10:28:46.822Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:28:47.101Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:28:47.645Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:28:53.024Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:28:53.311Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:28:53.869Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:30:53.625Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:30:53.891Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:30:54.631Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:39:46.465Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:39:46.759Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:39:47.278Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:39:52.310Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:39:52.589Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:39:53.146Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:40:04.675Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:40:04.960Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:40:05.513Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:40:24.851Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:40:25.120Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:40:25.668Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T10:54:28.357Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:56:59.958Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:57:00.251Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:57:25.368Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:57:26.048Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:57:38.284Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:57:39.086Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:57:48.562Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:57:57.457Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:58:02.695Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:58:45.374Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T10:58:45.664Z: [34mdebug[39m: Inside getAdsByUserId API
+2025-01-11T10:58:46.235Z: [32minfo[39m: Ads fetched successfully
+2025-01-11T11:04:10.396Z: [32minfo[39m: Conversation created successfully:
+2025-01-11T11:04:10.980Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T11:04:11.002Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T11:04:11.356Z: [34mdebug[39m: Inside getUser API
+2025-01-11T11:04:11.678Z: [32minfo[39m: User fetched successfully
+2025-01-11T11:04:13.291Z: [33mwarn[39m: No messages found for conversationId: 67825029854db73d5889c206
+2025-01-11T11:04:27.840Z: [32minfo[39m: Message added successfully:
+2025-01-11T11:04:36.380Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T11:04:36.395Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T11:04:36.738Z: [34mdebug[39m: Inside getUser API
+2025-01-11T11:04:37.020Z: [32minfo[39m: User fetched successfully
+2025-01-11T11:04:38.014Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T11:04:47.501Z: [32minfo[39m: Message added successfully:
+2025-01-11T11:04:51.950Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T11:04:51.970Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T11:04:52.261Z: [34mdebug[39m: Inside getUser API
+2025-01-11T11:04:52.553Z: [32minfo[39m: User fetched successfully
+2025-01-11T11:04:53.339Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T11:05:05.071Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T11:05:05.241Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T11:05:05.510Z: [34mdebug[39m: Inside getUser API
+2025-01-11T11:05:05.793Z: [32minfo[39m: User fetched successfully
+2025-01-11T11:06:55.643Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T11:07:17.322Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T11:07:21.389Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T11:08:49.868Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T11:14:41.599Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T11:15:02.948Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T11:15:03.391Z: [32minfo[39m: Fetching products not posted by user:
+2025-01-11T11:15:03.874Z: [32minfo[39m: Found 4 products not posted by user:
+2025-01-11T11:17:42.569Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T11:17:42.618Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T11:17:42.909Z: [34mdebug[39m: Inside getUser API
+2025-01-11T11:17:43.300Z: [32minfo[39m: User fetched successfully

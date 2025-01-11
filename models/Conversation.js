@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
-// const uniqueValidator = require('mongoose-unique-validator');
 
-const ConversationSchema = mongoose.Schema({
-   members:{
-       type:Array,
-   },
-   
-},{timestamps:true});
+const ConversationSchema = mongoose.Schema(
+  {
+    members: {
+      type: Array,
+      required: true,
+    },
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product', // Reference to the Product model
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-
-// productSchema.plugin(uniqueValidator);
-
-module.exports = mongoose.model('Conversation',ConversationSchema); 
-	
+module.exports = mongoose.model('Conversation', ConversationSchema);
