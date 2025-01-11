@@ -1466,3 +1466,8 @@
 2025-01-11T12:18:49.044Z: [34mdebug[39m: Getting the user
 2025-01-11T12:18:49.349Z: [32minfo[39m: User fetched successfully
 2025-01-11T12:18:54.010Z: [32minfo[39m: Messages retrieved successfully for conversationId:
+2025-01-11T12:33:02.403Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T12:33:02.496Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T12:33:02.803Z: [34mdebug[39m: Getting the user
+2025-01-11T12:33:03.114Z: [32minfo[39m: User fetched successfully
+2025-01-11T12:33:04.096Z: [32minfo[39m: Messages retrieved successfully for conversationId:

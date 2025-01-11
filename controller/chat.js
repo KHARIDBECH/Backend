@@ -1,5 +1,5 @@
-const Message = require('../models/message');
 const Conversation = require('../models/conversation');
+const message = require('../models/message');
 const Joi = require('joi');
 const logger = require('../utils/logger');
 const Ad = require('../models/product');
@@ -9,6 +9,7 @@ const createConvoSchema = Joi.object({
     receiverId: Joi.string().required(),
     productId: Joi.string().required(),
 });
+
 
 const addMessageSchema = Joi.object({
     conversationId: Joi.string().required(),
@@ -93,7 +94,7 @@ exports.addMessage = async (req, res) => {
         return res.status(400).json({ message: error.details[0].message });
     }
 
-    const newMessage = new Message(req.body);
+    const newMessage = new message(req.body);
 
     try {
         const savedMessage = await newMessage.save();
@@ -113,7 +114,7 @@ exports.getMessage = async (req, res) => {
     }
 
     try {
-        const messages = await Message.find({ conversationId: req.params.conversationId });
+        const messages = await message.find({ conversationId: req.params.conversationId });
 
         if (!messages || messages.length === 0) {
             logger.warn(`No messages found for conversationId: ${req.params.conversationId}`);
