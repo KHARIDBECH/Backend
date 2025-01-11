@@ -1,10 +1,10 @@
 
+import logger from '../utils/logger.js';
+import Joi from 'joi';
+import Ad from '../models/product.js';
 import Message from '../models/message.js';
 import Conversation from '../models/conversation.js';
-import Ad from '../models/product.js';
-import logger from '../utils/logger.js';
 // Schemas for validation
-import Joi from 'joi';
 const createConvoSchema = Joi.object({
     senderId: Joi.string().required(),
     receiverId: Joi.string().required(),
