@@ -1,4 +1,4 @@
-const logger = require('. ./utils/logger');
+
 const Joi = require('joi');
 const conversation = require('../models/conversation');
 const message = require('../models/message');

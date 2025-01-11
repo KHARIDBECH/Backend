@@ -1,8 +1,9 @@
-const logger = require('../utils/logger')
+
 const ad = require('../models/product');
 const globalConstant = require('../utils/globalConstant')
 const {s3} = require('../middleware/multer');
-const { DeleteObjectCommand } = require('@aws-sdk/client-s3')
+const { DeleteObjectCommand } = require('@aws-sdk/client-s3');
+const logger = require('../utils/logger');
 exports.createProduct = async (req, res) => {
     const { title, description, price, category, location } = req.body;
     try {

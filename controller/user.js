@@ -2,8 +2,8 @@ require('dotenv').config();
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const Ad = require('../models/product');
-const logger = require('../utils/logger');
 const { StatusCodes } = require('http-status-codes');
+const logger = require('../utils/logger');
 const apiUtils = require('../utils/apiUtils');
 const globalConstant = require('../utils/globalConstant');
 

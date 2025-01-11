@@ -1,7 +1,7 @@
-const {createLogger,format, transports}=require("winston");
-const {colorize,printf,combine,timestamp}=format;
+const { createLogger, format, transports } = require("winston");
+const { colorize, printf, combine, timestamp } = format;
 
-const myFormat=printf(info=>{
+const myFormat = printf(info => {
     return `${info.timestamp}: ${info.level}: ${info.message}`;
 });
 
@@ -14,16 +14,16 @@ const levels = {
     verbose: 4,
     error: 0,
     silly: 6
-  };
+};
 
-const logger=createLogger({
+const logger = createLogger({
     levels,
-    format:combine(timestamp(),colorize(),myFormat),
-    transports:[new transports.Console(),
-        new transports.File({
-            filename:'./logs/development.log'
-        })
+    format: combine(timestamp(), colorize(), myFormat),
+    transports: [new transports.Console(),
+    new transports.File({
+        filename: './logs/development.log'
+    })
     ]
 });
 
-module.exports=logger;
+module.exports = logger;
