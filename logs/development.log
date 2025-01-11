@@ -1455,3 +1455,14 @@
 2025-01-11T11:17:42.618Z: [34mdebug[39m: inside verify User for login middleware
 2025-01-11T11:17:42.909Z: [34mdebug[39m: Inside getUser API
 2025-01-11T11:17:43.300Z: [32minfo[39m: User fetched successfully
+2025-01-11T12:18:34.244Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T12:18:35.411Z: [32minfo[39m: Fetching products not posted by user:
+2025-01-11T12:18:35.796Z: [32minfo[39m: Found 4 products not posted by user:
+2025-01-11T12:18:42.318Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T12:18:42.655Z: [32minfo[39m: Fetching products not posted by user:
+2025-01-11T12:18:42.952Z: [32minfo[39m: Found 4 products not posted by user:
+2025-01-11T12:18:48.702Z: [32minfo[39m: Conversations retrieved successfully for userId:
+2025-01-11T12:18:48.751Z: [34mdebug[39m: inside verify User for login middleware
+2025-01-11T12:18:49.044Z: [34mdebug[39m: Getting the user
+2025-01-11T12:18:49.349Z: [32minfo[39m: User fetched successfully
+2025-01-11T12:18:54.010Z: [32minfo[39m: Messages retrieved successfully for conversationId:
