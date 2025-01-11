@@ -1,4 +1,4 @@
-const Conversation = require('../models/conversation');
+const conversation = require('../models/conversation');
 const message = require('../models/message');
 const Joi = require('joi');
 const logger = require('../utils/logger');
@@ -48,7 +48,7 @@ exports.createConvo = async (req, res) => {
         }
 
         // Create a new conversation
-        const newConversation = new Conversation({
+        const newConversation = new conversation({
             members: [senderId, receiverId],
             product: productId,
         });
@@ -69,7 +69,7 @@ exports.getConvo = async (req, res) => {
     }
 
     try {
-        const conversation = await Conversation.find({
+        const conversation = await conversation.find({
             members: { $in: [req.params.userId] },
         });
 
