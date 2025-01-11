@@ -98,7 +98,7 @@ exports.verify = async (req, res) => {
 };
 
 exports.getUser = async (req, res) => {
-    logger.debug('Inside getUser API');
+    logger.debug('Getting the user');
 
     try {
         const { friendId } = req.params;
