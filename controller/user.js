@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-const Product = require('../models/product');
+const Ad = require('../models/product');
 const logger = require('../utils/logger');
 const { StatusCodes } = require('http-status-codes');
 require('dotenv').config();
@@ -137,12 +137,12 @@ exports.getAdsByUserId = async (req, res) => {
             return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'Missing userId'));
         }
 
-        const ads = await Product.find({ postedBy: userId })
+        const ads = await Ad.find({ postedBy: userId })
             .skip(skip)
             .limit(limit)
             .select('title price images postedDate');
 
-        const totalAds = await Product.countDocuments({ postedBy: userId });
+        const totalAds = await Ad.countDocuments({ postedBy: userId });
         const totalPages = Math.ceil(totalAds / limit);
 
         logger.info('Ads fetched successfully');

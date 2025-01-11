@@ -1,8 +1,8 @@
-const conversation = require('../models/conversation');
 const message = require('../models/message');
 const Joi = require('joi');
 const logger = require('../utils/logger');
-const Ad = require('../models/product');
+const conversation = require('../models/conversation');
+const ad = require('../models/product');
 // Schemas for validation
 const createConvoSchema = Joi.object({
     senderId: Joi.string().required(),
@@ -30,7 +30,7 @@ exports.createConvo = async (req, res) => {
 
     try {
         // Ensure the product exists
-        const product = await Ad.findById(productId);
+        const product = await ad.findById(productId);
         if (!product) {
             logger.warn("Product not found with ID:", productId);
             return res.status(404).json({ message: "Product not found." });

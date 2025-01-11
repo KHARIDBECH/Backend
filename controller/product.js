@@ -1,4 +1,4 @@
-const Ad = require('../models/product');
+const ad = require('../models/product');
 const globalConstant = require('../utils/globalConstant')
 const {s3} = require('../middleware/multer');
 const { DeleteObjectCommand } = require('@aws-sdk/client-s3')
@@ -31,7 +31,7 @@ exports.createProduct = async (req, res) => {
         // Create and save product (optional: destructuring assignment)
 
         const user = req.user;
-        const newProduct = new Ad({
+        const newProduct = new ad({
             title,
             description,
             price,
@@ -69,7 +69,7 @@ exports.getProduct = async (req, res) => {
         logger.info("Fetching products not posted by user:", userId);
 
         // Fetch products where the postedBy field is not equal to the user ID
-        const productData = await Ad.find({ postedBy: { $ne: userId } });
+        const productData = await ad.find({ postedBy: { $ne: userId } });
 
         if (!productData.length) {
             logger.info("No products found not posted by user:", userId);
@@ -88,7 +88,7 @@ exports.getProductDetail = async (req, res) => {
 
 
     try {
-        const product = await Ad.findById(req.params.itemid).populate('postedBy', 'firstName lastName')
+        const product = await ad.findById(req.params.itemid).populate('postedBy', 'firstName lastName')
         if (!product) {
             return res.status(404).json({ message: 'Product not found' })
         }
@@ -105,7 +105,7 @@ exports.getProductDetail = async (req, res) => {
 exports.getAllCategories = async (req, res) => {
     const {category} = req.params
     try {
-        const categories = await Ad.find({category:{ $regex: category, $options: 'i' }})
+        const categories = await ad.find({category:{ $regex: category, $options: 'i' }})
         res.json(categories);
     } catch (error) {
         console.error('Error fetching categories:', error);
@@ -118,7 +118,7 @@ exports.getProductDetail = async (req, res) => {
 
 
     try {
-        const product = await Ad.findById(req.params.itemid).populate('postedBy', 'firstName lastName')
+        const product = await ad.findById(req.params.itemid).populate('postedBy', 'firstName lastName')
         if (!product) {
             return res.status(404).json({ message: 'Product not found' })
         }
@@ -138,7 +138,7 @@ exports.deleteProduct = async (req, res) =>
     
         try {
             // Find the ad by ID
-            const ad = await Ad.findById(adId);
+            const ad = await ad.findById(adId);
             if (!ad) {
                 return res.status(404).json({ message: 'Ad not found' });
             }
@@ -163,7 +163,7 @@ exports.deleteProduct = async (req, res) =>
             await Promise.all(deletePromises);
     
             // Delete the ad from the database
-            await Ad.findByIdAndDelete(adId);
+            await ad.findByIdAndDelete(adId);
     
             res.status(200).json({ message: 'Ad deleted successfully' });
         } catch (error) {
