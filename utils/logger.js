@@ -16,13 +16,18 @@ const levels = {
     silly: 6
 };
 
+// Determine the current environment
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 const logger = createLogger({
     levels,
     format: combine(timestamp(), colorize(), myFormat),
-    transports: [new transports.Console(),
-    new transports.File({
-        filename: './logs/development.log'
-    })
+    transports: [
+        // Console transport only in development
+        ...(isDevelopment ? [new transports.Console()] : []),
+        new transports.File({
+            filename: './logs/development.log'
+        })
     ]
 });
 
