@@ -1,4 +1,4 @@
-const Ad = require('../models/Product');
+const Ad = require('../models/product');
 const globalConstant = require('../utils/globalConstant')
 const {s3} = require('../middleware/multer');
 const { DeleteObjectCommand } = require('@aws-sdk/client-s3')

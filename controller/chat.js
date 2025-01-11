@@ -1,9 +1,9 @@
 
-const Message = require('../models/Message');
-const Conversation = require('../models/Conversation');
+const Message = require('../models/message');
+const Conversation = require('../models/conversation');
 const Joi = require('joi');
 const logger = require('../utils/logger');
-const Ad = require('../models/Product');
+const Ad = require('../models/product');
 // Schemas for validation
 const createConvoSchema = Joi.object({
     senderId: Joi.string().required(),
