@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const Product = require('../models/Product');
-const jwt = require('jsonwebtoken');
 const logger = require('../utils/logger');
 const { StatusCodes } = require('http-status-codes');
 require('dotenv').config();

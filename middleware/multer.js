@@ -18,14 +18,14 @@ const upload = multer({
     storage: multerS3({
         s3: s3,
         bucket: process.env.AWS_BUCKET_NAME, // Adjust according to your needs
-        key : (req, file, cb) => {
+        key: (req, file, cb) => {
             // Generate a unique identifier
             const uniqueId = uuidv4(); // Generate a unique ID
             const sanitizedFileName = file.originalname.toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with hyphens
-            .replace(/^-+|-+$/g, '') // Remove leading and trailing hyphens
-            .replace(/-+(\.[^.]+$)/, '$1') // Remove trailing hyphens before the file extension
-            .trim();
+                .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with hyphens
+                .replace(/^-+|-+$/g, '') // Remove leading and trailing hyphens
+                .replace(/-+(\.[^.]+$)/, '$1') // Remove trailing hyphens before the file extension
+                .trim();
             // Construct the final file name
             const fileName = `Product/${uniqueId}-${sanitizedFileName}`;
             // Call the callback with the generated file name
@@ -42,4 +42,4 @@ const upload = multer({
     },
     limits: { fileSize: 5 * 1024 * 1024 } // 5MB file size limit
 });
-module.exports = {upload,s3};
+module.exports = { upload, s3 };
