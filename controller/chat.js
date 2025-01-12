@@ -3,7 +3,7 @@ import logger from '../utils/logger.js';
 import Joi from 'joi';
 import Ad from '../models/product.js';
 
-import Message from '../models/message.js';
+// import Message from '../models/message.js';
 import Conversation from '../models/conversation.js';
 // Schemas for validation
 const createConvoSchema = Joi.object({
@@ -64,69 +64,69 @@ export const createConvo = async (req, res) => {
     }
 };
 
-export const getConvo = async (req, res) => {
-    if (!req.params.userId) {
-        logger.warn("Validation error in getConvo: Missing userId");
-        return res.status(400).json({ message: "userId is required." });
-    }
+// export const getConvo = async (req, res) => {
+//     if (!req.params.userId) {
+//         logger.warn("Validation error in getConvo: Missing userId");
+//         return res.status(400).json({ message: "userId is required." });
+//     }
 
-    try {
-        const conversation = await Conversation.find({
-            members: { $in: [req.params.userId] },
-        });
+//     try {
+//         const conversation = await Conversation.find({
+//             members: { $in: [req.params.userId] },
+//         });
 
-        if (!conversation || conversation.length === 0) {
-            logger.warn(`No conversations found for userId: ${req.params.userId}`);
-            return res.status(404).json({ message: "No conversations found." });
-        }
+//         if (!conversation || conversation.length === 0) {
+//             logger.warn(`No conversations found for userId: ${req.params.userId}`);
+//             return res.status(404).json({ message: "No conversations found." });
+//         }
 
-        logger.info("Conversations retrieved successfully for userId:", req.params.userId);
-        res.status(200).json(conversation);
-    } catch (err) {
-        logger.error("Error retrieving conversations:", err);
-        res.status(500).json({ message: "Failed to retrieve conversations.", error: err.message });
-    }
-};
+//         logger.info("Conversations retrieved successfully for userId:", req.params.userId);
+//         res.status(200).json(conversation);
+//     } catch (err) {
+//         logger.error("Error retrieving conversations:", err);
+//         res.status(500).json({ message: "Failed to retrieve conversations.", error: err.message });
+//     }
+// };
 
-// Add Message routes logic
-export const addMessage = async (req, res) => {
-    const { error } = addMessageSchema.validate(req.body);
-    if (error) {
-        logger.warn("Validation error in addMessage:", error.details[0].message);
-        return res.status(400).json({ message: error.details[0].message });
-    }
-    console.log(req.body);
-    const newMessage = new Message(req.body);
+// // Add Message routes logic
+// export const addMessage = async (req, res) => {
+//     const { error } = addMessageSchema.validate(req.body);
+//     if (error) {
+//         logger.warn("Validation error in addMessage:", error.details[0].message);
+//         return res.status(400).json({ message: error.details[0].message });
+//     }
+//     console.log(req.body);
+//     const newMessage = new Message(req.body);
 
-    try {
-        const savedMessage = await newMessage.save();
-        logger.info("Message added successfully:", savedMessage);
-        res.status(201).json(savedMessage);
-    } catch (err) {
-        logger.error("Error adding message:", err);
-        res.status(500).json({ message: "Failed to add message.", error: err.message });
-    }
-};
+//     try {
+//         const savedMessage = await newMessage.save();
+//         logger.info("Message added successfully:", savedMessage);
+//         res.status(201).json(savedMessage);
+//     } catch (err) {
+//         logger.error("Error adding message:", err);
+//         res.status(500).json({ message: "Failed to add message.", error: err.message });
+//     }
+// };
 
-// Get message routes logic
-export const getMessage = async (req, res) => {
-    if (!req.params.conversationId) {
-        logger.warn("Validation error in getMessage: Missing conversationId");
-        return res.status(400).json({ message: "conversationId is required." });
-    }
+// // Get message routes logic
+// export const getMessage = async (req, res) => {
+//     if (!req.params.conversationId) {
+//         logger.warn("Validation error in getMessage: Missing conversationId");
+//         return res.status(400).json({ message: "conversationId is required." });
+//     }
 
-    try {
-        const messages = await Message.find({ conversationId: req.params.conversationId });
+//     try {
+//         const messages = await Message.find({ conversationId: req.params.conversationId });
 
-        if (!messages || messages.length === 0) {
-            logger.warn(`No messages found for conversationId: ${req.params.conversationId}`);
-            return res.status(404).json({ message: "No messages found." });
-        }
+//         if (!messages || messages.length === 0) {
+//             logger.warn(`No messages found for conversationId: ${req.params.conversationId}`);
+//             return res.status(404).json({ message: "No messages found." });
+//         }
 
-        logger.info("Messages retrieved successfully for conversationId:", req.params.conversationId);
-        res.status(200).json(messages);
-    } catch (err) {
-        logger.error("Error retrieving messages:", err);
-        res.status(500).json({ message: "Failed to retrieve messages.", error: err.message });
-    }
-};
+//         logger.info("Messages retrieved successfully for conversationId:", req.params.conversationId);
+//         res.status(200).json(messages);
+//     } catch (err) {
+//         logger.error("Error retrieving messages:", err);
+//         res.status(500).json({ message: "Failed to retrieve messages.", error: err.message });
+//     }
+// };
