@@ -15,9 +15,8 @@ app.use(cors());
 
   
 // Static Middleware 
-// console.log(path.join(__dirname, '/public/images'))
+
 app.use('/public', express.static(path.resolve('./public')));
-// app.use(express.static(path.join(__dirname, '/public/images')));
 app.get('/', (req, res) => {
     res.send('Server running smoothlyy!');
   });
