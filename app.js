@@ -5,7 +5,7 @@ import { mongoConnect } from './utils/dbUtils.js'; // Ensure to add .js extensio
 import userRoutes from './routes/user.js'; // Ensure to add .js extension
 import productRoutes from './routes/product.js'; // Ensure to add .js extension
 import conversationRoutes from './routes/conversation.js'; // Ensure to add .js extension
-// import messageRoutes from './routes/messages.js'; // Ensure to add .js extension
+import messageRoutes from './routes/messages.js'; // Ensure to add .js extension
 import cors from 'cors'; // Importing cors
 
 
@@ -25,6 +25,6 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/chatConvo", conversationRoutes);
-// app.use("/api/chatMessages", messageRoutes);
+app.use("/api/chatMessages", messageRoutes);
 mongoConnect(); //Mongo connection
 export default app;
