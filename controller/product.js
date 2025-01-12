@@ -56,34 +56,40 @@ export const createProduct = async (req, res) => {
 
 
 
-
 export const getProduct = async (req, res) => {
-    const userId = req.user.id;
-
-    if (!userId) {
-        logger.warn("Unauthorized access: Missing user ID.");
-        return res.status(401).json({ message: "Unauthorized access: User ID is required." });
-    }
+    const userId = req.user?.id; // If user is logged in, `req.user.id` will be set
 
     try {
-        logger.info("Fetching products not posted by user:", userId);
+        logger.info(
+            userId 
+                ? `Fetching products not posted by user: ${userId}` 
+                : "Fetching all products for an unauthenticated user."
+        );
 
-        // Fetch products where the postedBy field is not equal to the user ID
-        const productData = await Ad.find({ postedBy: { $ne: userId } });
+        // Build the query based on user ID
+        const query = userId ? { postedBy: { $ne: userId } } : {};
+
+        // Fetch products
+        const productData = await Ad.find(query);
 
         if (!productData.length) {
-            logger.info("No products found not posted by user:", userId);
+            logger.info(
+                userId 
+                    ? `No products found not posted by user: ${userId}` 
+                    : "No products available for unauthenticated user."
+            );
             return res.status(404).json({ message: "No products available." });
         }
 
-        logger.info(`Found ${productData.length} products not posted by user:`, userId);
+        logger.info(
+            `Found ${productData.length} products ${userId ? `not posted by user: ${userId}` : "for unauthenticated user"}`
+        );
         res.status(200).json(productData);
     } catch (error) {
         logger.error("Error fetching products:", error.message);
         res.status(500).json({ message: "Failed to fetch products.", error: error.message });
     }
 };
-
 export const getProductDetail = async (req, res) => {
 
 
