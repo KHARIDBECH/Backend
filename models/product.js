@@ -36,7 +36,7 @@ const AdSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    postedDate: {
+    postedAt: {
         type: Date,
         default: Date.now
     },

@@ -1,164 +1,136 @@
 import Ad from '../models/product.js';
-// import { UNDERSCOREID } from '../utils/globalConstant.js'; // Ensure to add .js extension
-import {  s3 } from '../middleware/multer.js'; // Ensure to add .js extension
+import { s3 } from '../middleware/multer.js';
 import { DeleteObjectCommand } from '@aws-sdk/client-s3';
-import logger from '../utils/logger.js'; // Ensure to add .js extension
+import logger from '../utils/logger.js';
+import asyncHandler from '../middleware/asyncHandler.js';
+import ErrorResponse from '../utils/ErrorResponse.js';
+import { UNDERSCOREID } from '../utils/globalConstant.js';
 
-export const createProduct = async (req, res) => {
+// @desc    Create a new product
+// @route   POST /api/product
+// @access  Private
+export const createProduct = asyncHandler(async (req, res, next) => {
     const { title, description, price, category, location } = req.body;
-    try {
-        // Validate image upload
-        if (!req.files || req.files.length === 0) {
-            return res.status(400).json({ message: 'No image files were uploaded.' });
-        }
 
-        // Extract image data and handle potential errors
-        const images = [];
-        for (const file of req.files) {
-           
-            const file_data = {
-                filename: file.key,
-                url: file.location // Assuming 'location' holds the S3 URL returned by multer-s3
-            }
-            const imageUrl = file.location; // Assuming 'location' holds the S3 URL
-            if (!imageUrl) {
-                console.error('Error obtaining image URL from multer-s3:', file);
-                continue; // Skip to next image if URL not found
-            }
-            images.push(file_data);
-        }
+    if (!req.files || req.files.length === 0) {
+        return next(new ErrorResponse('No image files were uploaded.', 400));
+    }
 
+    const images = req.files.map(file => ({
+        filename: file.key,
+        url: file.location
+    })).filter(img => img.url);
 
-        // Create and save product (optional: destructuring assignment)
+    if (images.length === 0) {
+        return next(new ErrorResponse('Failed to obtain image URLs from storage.', 500));
+    }
 
-        const user = req.user;
-        const newProduct = new Ad({
-            title,
-            description,
-            price,
-            category,
-            location,
-            postedBy: user[globalConstant.UNDERSCOREID],
-            images: images.length > 0 ? images : undefined,
-            // Set image only if images exist
+    const newProduct = new Ad({
+        title,
+        description,
+        price,
+        category,
+        location,
+        postedBy: req.user[UNDERSCOREID],
+        images
+    });
+
+    const product = await newProduct.save();
+
+    res.status(201).json({
+        success: true,
+        message: 'Product created successfully!',
+        data: product
+    });
+});
+
+// @desc    Get all products (optionally excluding current user's)
+// @route   GET /api/product
+// @access  Public
+export const getProduct = asyncHandler(async (req, res, next) => {
+    const userId = req.user?.id;
+
+    logger.info(userId
+        ? `Fetching products not posted by user: ${userId}`
+        : "Fetching all products for an unauthenticated user."
+    );
+
+    const query = userId ? { postedBy: { $ne: userId } } : {};
+    const products = await Ad.find(query);
+
+    if (!products.length) {
+        return next(new ErrorResponse('No products available.', 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        count: products.length,
+        data: products
+    });
+});
+
+// @desc    Get single product detail
+// @route   GET /api/product/itemdetail/:itemid
+// @access  Public
+export const getProductDetail = asyncHandler(async (req, res, next) => {
+    const product = await Ad.findById(req.params.itemid).populate('postedBy', 'firstName lastName');
+
+    if (!product) {
+        return next(new ErrorResponse(`Product not found with id of ${req.params.itemid}`, 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        data: product
+    });
+});
+
+// @desc    Get products by category
+// @route   GET /api/product/category/:category
+// @access  Public
+export const getAllCategories = asyncHandler(async (req, res, next) => {
+    const { category } = req.params;
+    const products = await Ad.find({
+        category: { $regex: category, $options: 'i' }
+    });
+
+    res.status(200).json({
+        success: true,
+        count: products.length,
+        data: products
+    });
+});
+
+// @desc    Delete product
+// @route   DELETE /api/product/:id
+// @access  Private
+export const deleteProduct = asyncHandler(async (req, res, next) => {
+    const ad = await Ad.findById(req.params.id);
+
+    if (!ad) {
+        return next(new ErrorResponse(`Ad not found with id of ${req.params.id}`, 404));
+    }
+
+    // Check if the ad belongs to the authenticated user
+    if (ad.postedBy.toString() !== req.user.id) {
+        return next(new ErrorResponse('Not authorized to delete this ad', 403));
+    }
+
+    // Delete images from S3
+    const deletePromises = ad.images.map(image => {
+        const command = new DeleteObjectCommand({
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: image.filename,
         });
+        return s3.send(command);
+    });
 
-        const productResponse = await newProduct.save();
+    await Promise.all(deletePromises);
+    await ad.deleteOne();
 
-        res.status(201).json({ productResponse, message: 'Product created successfully!' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error. Please try again later.' });
-    }
-
-}
-
-
-
-
-export const getProduct = async (req, res) => {
-    const userId = req.user?.id; // If user is logged in, `req.user.id` will be set
-
-    try {
-        logger.info(
-            userId 
-                ? `Fetching products not posted by user: ${userId}` 
-                : "Fetching all products for an unauthenticated user."
-        );
-
-        // Build the query based on user ID
-        const query = userId ? { postedBy: { $ne: userId } } : {};
-
-        // Fetch products
-        const productData = await Ad.find(query);
-
-        if (!productData.length) {
-            logger.info(
-                userId 
-                    ? `No products found not posted by user: ${userId}` 
-                    : "No products available for unauthenticated user."
-            );
-            return res.status(404).json({ message: "No products available." });
-        }
-
-        logger.info(
-            `Found ${productData.length} products ${userId ? `not posted by user: ${userId}` : "for unauthenticated user"}`
-        );
-        res.status(200).json(productData);
-    } catch (error) {
-        logger.error("Error fetching products:", error.message);
-        res.status(500).json({ message: "Failed to fetch products.", error: error.message });
-    }
-};
-export const getProductDetail = async (req, res) => {
-
-
-    try {
-        const product = await Ad.findById(req.params.itemid).populate('postedBy', 'firstName lastName')
-        if (!product) {
-            return res.status(404).json({ message: 'Product not found' })
-        }
-      
-        res.status(200).json(product)
-    }
-    catch (err) {
-        res.status(500).json(err)
-    }
-
-}
-
-
-export const getAllCategories = async (req, res) => {
-    const {category} = req.params
-    try {
-        const categories = await Ad.find({category:{ $regex: category, $options: 'i' }})
-        res.json(categories);
-    } catch (error) {
-        console.error('Error fetching categories:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-}
-
-
-
-
-export const deleteProduct = async (req, res) => 
-    {
-        const adId = req.params.id; // Get the ad ID from the request parameters
-        const userId = req.user.id; // Get the authenticated user's ID
-    
-        try {
-            // Find the ad by ID
-            const ad = await Ad.findById(adId);
-            if (!ad) {
-                return res.status(404).json({ message: 'Ad not found' });
-            }
-    
-            // Check if the ad belongs to the authenticated user
-            if (ad.postedBy.toString() !== userId) {
-                return res.status(403).json({ message: 'Forbidden: You do not have permission to delete this ad.' });
-            }
-    
-            // Delete images from S3
-            const deletePromises = ad.images.map(imageKey => {
-            
-                const params = {
-                    Bucket: process.env.AWS_BUCKET_NAME,
-                    Key: imageKey.filename,
-                };
-                 const command = new DeleteObjectCommand(params);
-                return s3.send(command); ;
-            });
-    
-            // Wait for all images to be deleted
-            await Promise.all(deletePromises);
-    
-            // Delete the ad from the database
-            await ad.findByIdAndDelete(adId);
-    
-            res.status(200).json({ message: 'Ad deleted successfully' });
-        } catch (error) {
-            console.error("Error deleting ad:", error);
-            res.status(500).json({ message: 'Error deleting ad' });
-        }
-}
+    res.status(200).json({
+        success: true,
+        message: 'Ad deleted successfully',
+        data: {}
+    });
+});

@@ -1544,3 +1544,150 @@
 2025-01-11T14:47:15.543Z: [32minfo[39m: User fetched successfully
 2025-01-11T14:47:16.373Z: [32minfo[39m: Messages retrieved successfully for conversationId:
 2025-01-11T14:47:22.290Z: [32minfo[39m: Message added successfully:
+2025-12-28T17:18:00.153Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:18:00.161Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:18:00.162Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:18:00.662Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:20:05.662Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:20:05.664Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:20:05.665Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:20:06.105Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:21:26.294Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:21:26.296Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:21:26.297Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:21:26.751Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:22:56.289Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:22:56.293Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:22:56.294Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:22:56.731Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:22:56.738Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:22:56.740Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:22:56.741Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:22:57.207Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:23:02.065Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:23:02.066Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:23:02.067Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:23:02.579Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:23:02.583Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:23:02.584Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:23:02.585Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:23:03.013Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:23:08.990Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:23:08.992Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:23:08.992Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:23:09.456Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:23:09.464Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:23:09.466Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:23:09.467Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:23:09.931Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:23:16.345Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:23:16.358Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:23:16.376Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:23:16.822Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:23:16.838Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:23:16.846Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:23:16.856Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:23:17.316Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:24:19.849Z: [34mdebug[39m: Inside signin request
+2025-12-28T17:24:20.287Z: [31merror[39m: User not found
+2025-12-28T17:31:50.297Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:31:50.301Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:31:50.301Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:31:50.735Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:31:50.740Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:31:50.741Z: [33mwarn[39m: Invalid token or error in token verification:
+2025-12-28T17:31:50.742Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:31:51.154Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:31:51.163Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:31:51.164Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:31:51.572Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:31:51.581Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:31:51.583Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:31:51.990Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:31:51.995Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:31:51.996Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:31:52.490Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:31:52.535Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:31:52.552Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:31:52.958Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:32:33.011Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:32:33.014Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:32:33.429Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:32:33.434Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:32:33.435Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:32:33.853Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:32:36.781Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:32:36.781Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:32:38.403Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:32:38.405Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:32:38.405Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:32:38.833Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:32:44.552Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:32:44.553Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:32:44.969Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:32:44.972Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:32:44.973Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:32:45.355Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:32:49.878Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:32:49.878Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:32:50.288Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:32:50.290Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:32:50.291Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:32:50.704Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:32:56.593Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:32:56.594Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:32:57.024Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:32:57.027Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:32:57.027Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:32:57.408Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:34:29.504Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:34:29.505Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:34:29.924Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:34:29.929Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:34:29.931Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:34:30.388Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:34:48.502Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:34:48.502Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:34:48.960Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:34:48.962Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:34:48.963Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:34:49.408Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:35:05.919Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:35:05.920Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:35:06.333Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:35:06.338Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:35:06.339Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:35:06.766Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:35:33.177Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:35:33.179Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:35:33.538Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:35:33.542Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:35:33.542Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:35:33.899Z: [32minfo[39m: Found 5 products for unauthenticated user
+2025-12-28T17:39:09.388Z: [34mdebug[39m: Inside signin request
+2025-12-28T17:39:09.826Z: [31merror[39m: User not found
+2025-12-28T17:39:14.690Z: [34mdebug[39m: Inside signin request
+2025-12-28T17:39:15.198Z: [31merror[39m: User not found
+2025-12-28T17:39:18.999Z: [34mdebug[39m: Inside signin request
+2025-12-28T17:39:19.394Z: [31merror[39m: User not found
+2025-12-28T17:39:24.205Z: [34mdebug[39m: Inside signin request
+2025-12-28T17:39:24.631Z: [31merror[39m: User not found
+2025-12-28T17:39:27.033Z: [34mdebug[39m: Inside signin request
+2025-12-28T17:39:27.418Z: [31merror[39m: User not found
+2025-12-28T17:39:39.247Z: [34mdebug[39m: Inside signup request
+2025-12-28T17:39:39.686Z: [34mdebug[39m: No user with given email detected, creating new user
+2025-12-28T17:39:39.687Z: [31merror[39m: Signup error: globalConstant is not defined
+2025-12-28T17:46:55.053Z: [34mdebug[39m: Inside signup request
+2025-12-28T17:47:12.575Z: [34mdebug[39m: Inside signin request
+2025-12-28T17:47:13.273Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:47:13.685Z: [32minfo[39m: Fetching products not posted by user: 69516d0f9940bd5a680dc734
+2025-12-28T17:48:05.985Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:48:05.992Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:48:06.458Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:48:06.461Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-28T17:48:06.834Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:48:07.201Z: [32minfo[39m: Fetching products not posted by user: 69516d0f9940bd5a680dc734
+2025-12-28T17:48:37.205Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:48:37.600Z: [32minfo[39m: Fetching products not posted by user: 69516d0f9940bd5a680dc734
+2025-12-28T17:48:38.029Z: [34mdebug[39m: Inside optional verify login token middleware
+2025-12-28T17:48:38.439Z: [32minfo[39m: Fetching products not posted by user: 69516d0f9940bd5a680dc734

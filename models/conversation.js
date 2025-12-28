@@ -2,13 +2,13 @@ import mongoose from 'mongoose';
 
 const ConversationSchema = mongoose.Schema(
   {
-    members: {
-      type: Array,
-      required: true,
-    },
+    members: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }],
     product: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Ad', // Reference to the Product model
+      ref: 'Ad',
       required: true,
     },
   },

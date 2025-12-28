@@ -1,10 +1,11 @@
-
 import logger from '../utils/logger.js';
 import Joi from 'joi';
 import Ad from '../models/product.js';
-
 import Message from '../models/message.js';
 import Conversation from '../models/conversation.js';
+import asyncHandler from '../middleware/asyncHandler.js';
+import ErrorResponse from '../utils/ErrorResponse.js';
+
 // Schemas for validation
 const createConvoSchema = Joi.object({
     senderId: Joi.string().required(),
@@ -12,121 +13,104 @@ const createConvoSchema = Joi.object({
     productId: Joi.string().required(),
 });
 
-
 const addMessageSchema = Joi.object({
     conversationId: Joi.string().required(),
     senderId: Joi.string().required(),
     text: Joi.string().required(),
 });
 
-// Conversation start
-export const createConvo = async (req, res) => {
+// @desc    Create or get existing conversation
+// @route   POST /api/chatConvo
+// @access  Private
+export const createConvo = asyncHandler(async (req, res, next) => {
     const { senderId, receiverId, productId } = req.body;
 
-    // Validate request payload
     const { error } = createConvoSchema.validate(req.body);
     if (error) {
-        logger.warn("Validation error in createConvo:", error.details[0].message);
-        return res.status(400).json({ message: error.details[0].message });
+        return next(new ErrorResponse(error.details[0].message, 400));
     }
 
-    try {
-        // Ensure the product exists
-        const product = await Ad.findById(productId);
-        if (!product) {
-            logger.warn("Product not found with ID:", productId);
-            return res.status(404).json({ message: "Product not found." });
-        }
+    const product = await Ad.findById(productId);
+    if (!product) {
+        return next(new ErrorResponse(`Product not found with id of ${productId}`, 404));
+    }
 
-        // Check if a conversation already exists for these members and this product
-        const existingConversation = await Conversation.findOne({
-            members: { $all: [senderId, receiverId] },
-            product: productId,
+    let conversation = await Conversation.findOne({
+        members: { $all: [senderId, receiverId] },
+        product: productId,
+    });
+
+    if (conversation) {
+        return res.status(200).json({
+            success: true,
+            data: conversation
         });
-
-        if (existingConversation) {
-            logger.info("Conversation already exists:", existingConversation);
-            return res.status(200).json(existingConversation);
-        }
-
-        // Create a new conversation
-        const newConversation = new Conversation({
-            members: [senderId, receiverId],
-            product: productId,
-        });
-
-        const savedConversation = await newConversation.save();
-        logger.info("Conversation created successfully:", savedConversation);
-        res.status(201).json(savedConversation);
-    } catch (err) {
-        logger.error("Error creating conversation:", err);
-        res.status(500).json({ message: "Failed to create conversation.", error: err.message });
-    }
-};
-
-export const getConvo = async (req, res) => {
-    if (!req.params.userId) {
-        logger.warn("Validation error in getConvo: Missing userId");
-        return res.status(400).json({ message: "userId is required." });
     }
 
-    try {
-        const conversation = await Conversation.find({
-            members: { $in: [req.params.userId] },
-        });
+    conversation = await Conversation.create({
+        members: [senderId, receiverId],
+        product: productId,
+    });
 
-        if (!conversation || conversation.length === 0) {
-            logger.warn(`No conversations found for userId: ${req.params.userId}`);
-            return res.status(404).json({ message: "No conversations found." });
-        }
+    res.status(201).json({
+        success: true,
+        data: conversation
+    });
+});
 
-        logger.info("Conversations retrieved successfully for userId:", req.params.userId);
-        res.status(200).json(conversation);
-    } catch (err) {
-        logger.error("Error retrieving conversations:", err);
-        res.status(500).json({ message: "Failed to retrieve conversations.", error: err.message });
+// @desc    Get conversations for a user
+// @route   GET /api/chatConvo/:userId
+// @access  Private
+export const getConvo = asyncHandler(async (req, res, next) => {
+    const { userId } = req.params;
+
+    if (!userId) {
+        return next(new ErrorResponse('User ID is required', 400));
     }
-};
 
-// Add Message routes logic
-export const addMessage = async (req, res) => {
+    const conversations = await Conversation.find({
+        members: { $in: [userId] },
+    }).sort('-updatedAt');
+
+    res.status(200).json({
+        success: true,
+        count: conversations.length,
+        data: conversations
+    });
+});
+
+// @desc    Add a message to a conversation
+// @route   POST /api/chatMessages
+// @access  Private
+export const addMessage = asyncHandler(async (req, res, next) => {
     const { error } = addMessageSchema.validate(req.body);
     if (error) {
-        logger.warn("Validation error in addMessage:", error.details[0].message);
-        return res.status(400).json({ message: error.details[0].message });
-    }
-    console.log(req.body);
-    const newMessage = new Message(req.body);
-
-    try {
-        const savedMessage = await newMessage.save();
-        logger.info("Message added successfully:", savedMessage);
-        res.status(201).json(savedMessage);
-    } catch (err) {
-        logger.error("Error adding message:", err);
-        res.status(500).json({ message: "Failed to add message.", error: err.message });
-    }
-};
-
-// Get message routes logic
-export const getMessage = async (req, res) => {
-    if (!req.params.conversationId) {
-        logger.warn("Validation error in getMessage: Missing conversationId");
-        return res.status(400).json({ message: "conversationId is required." });
+        return next(new ErrorResponse(error.details[0].message, 400));
     }
 
-    try {
-        const messages = await Message.find({ conversationId: req.params.conversationId });
+    const message = await Message.create(req.body);
 
-        if (!messages || messages.length === 0) {
-            logger.warn(`No messages found for conversationId: ${req.params.conversationId}`);
-            return res.status(404).json({ message: "No messages found." });
-        }
+    res.status(201).json({
+        success: true,
+        data: message
+    });
+});
 
-        logger.info("Messages retrieved successfully for conversationId:", req.params.conversationId);
-        res.status(200).json(messages);
-    } catch (err) {
-        logger.error("Error retrieving messages:", err);
-        res.status(500).json({ message: "Failed to retrieve messages.", error: err.message });
+// @desc    Get messages for a conversation
+// @route   GET /api/chatMessages/:conversationId
+// @access  Private
+export const getMessage = asyncHandler(async (req, res, next) => {
+    const { conversationId } = req.params;
+
+    if (!conversationId) {
+        return next(new ErrorResponse('Conversation ID is required', 400));
     }
-};
+
+    const messages = await Message.find({ conversationId }).sort('createdAt');
+
+    res.status(200).json({
+        success: true,
+        count: messages.length,
+        data: messages
+    });
+});

@@ -1,163 +1,128 @@
 import dotenv from 'dotenv';
-import bcrypt from 'bcrypt';
 import User from '../models/user.js';
 import Ad from '../models/product.js';
 import { StatusCodes } from 'http-status-codes';
 import logger from '../utils/logger.js';
-import apiUtils from '../utils/apiUtils.js';
-// import { SALT_ROUNDS, TOKEN, UNDERSCOREID } from '../utils/globalConstant.js';
+import asyncHandler from '../middleware/asyncHandler.js';
+import ErrorResponse from '../utils/ErrorResponse.js';
+
 dotenv.config();
 
-
-export const signup = async (req, res) => {
+// @desc    Register a new user
+// @route   POST /api/users/signup
+// @access  Public
+export const signup = asyncHandler(async (req, res, next) => {
     logger.debug('Inside signup request');
+    const { firstName, lastName, email, password } = req.body;
 
-    try {
-        const { firstName, lastName, email, password } = req.body;
-
-        if (!firstName || !lastName || !email || !password) {
-            logger.error('Validation error: Missing required fields');
-            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'Missing required fields'));
-        }
-
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            logger.error('User already exists');
-            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'User already exists'));
-        }
-
-        logger.debug('No user with given email detected, creating new user');
-        const hashedPassword = await bcrypt.hash(password, globalConstant.SALT_ROUNDS);
-        const user = new User({ firstName, lastName, email, password: hashedPassword });
-
-        await user.save();
-        logger.info('User created successfully');
-        return res.status(StatusCodes.CREATED).json(apiUtils.getResponseMessage(StatusCodes.CREATED, 'User created successfully'));
-    } catch (error) {
-        logger.error(`Signup error: ${error.message}`);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(StatusCodes.INTERNAL_SERVER_ERROR, error.message));
+    if (!firstName || !lastName || !email || !password) {
+        return next(new ErrorResponse('Please provide all required fields', StatusCodes.BAD_REQUEST));
     }
-};
 
-export const signin = async (req, res) => {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+        return next(new ErrorResponse('User already exists', StatusCodes.BAD_REQUEST));
+    }
+
+    const user = await User.create({ firstName, lastName, email, password });
+
+    res.status(StatusCodes.CREATED).json({
+        success: true,
+        message: 'User created successfully'
+    });
+});
+
+// @desc    Login user
+// @route   POST /api/users/signin
+// @access  Public
+export const signin = asyncHandler(async (req, res, next) => {
     logger.debug('Inside signin request');
+    const { email, password } = req.body;
 
-    try {
-        const { email, password } = req.body;
-
-        if (!email || !password) {
-            logger.error('Validation error: Missing email or password');
-            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'Missing email or password'));
-        }
-
-        const user = await User.findOne({ email });
-        if (!user) {
-            logger.error('User not found');
-            return res.status(StatusCodes.UNAUTHORIZED).json(apiUtils.getResponseMessage(StatusCodes.UNAUTHORIZED, 'User not found'));
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            logger.error('Incorrect password');
-            return res.status(StatusCodes.UNAUTHORIZED).json(apiUtils.getResponseMessage(StatusCodes.UNAUTHORIZED, 'Incorrect password'));
-        }
-
-        logger.info('Password matched, generating token');
-        const token = apiUtils.generateAccessToken({ userId: user._id }, process.env.TOKEN_SECRET);
-
-        const loginResponse = apiUtils.getResponseMessage(StatusCodes.OK, 'Logged in successfully');
-        loginResponse.token = token;
-        loginResponse.firstName = user.firstName;
-        loginResponse.userId = user._id;
-
-        return res.status(StatusCodes.OK).json(loginResponse);
-    } catch (error) {
-        logger.error(`Signin error: ${error.message}`);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(StatusCodes.INTERNAL_SERVER_ERROR, error.message));
+    if (!email || !password) {
+        return next(new ErrorResponse('Please provide an email and password', StatusCodes.BAD_REQUEST));
     }
-};
 
-export const verify = async (req, res) => {
-    logger.debug('Inside verify user API');
-
-    try {
-        const authHeader = req.headers['authorization'];
-
-        if (!authHeader) {
-            logger.error('Authorization header missing');
-            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'Authorization header missing'));
-        }
-
-        const token = authHeader.split(' ')[1];
-        const verifiedData = await apiUtils.verifyAccessToken(token, process.env.TOKEN_SECRET);
-
-        logger.info('Token verified successfully');
-        return res.status(StatusCodes.OK).json(verifiedData);
-    } catch (error) {
-        logger.error(`Token verification error: ${error.message}`);
-        return res.status(StatusCodes.UNAUTHORIZED).json(apiUtils.getResponseMessage(StatusCodes.UNAUTHORIZED, 'Invalid or expired token'));
+    const user = await User.findOne({ email }).select('+password');
+    if (!user) {
+        return next(new ErrorResponse('Invalid credentials', StatusCodes.UNAUTHORIZED));
     }
-};
 
-export const getUser = async (req, res) => {
-    logger.debug('Getting the user');
-
-    try {
-        const { friendId } = req.params;
-
-        if (!friendId) {
-            logger.error('Validation error: Missing friendId');
-            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'Missing userId'));
-        }
-
-        const user = await User.findOne({ _id: friendId }, { firstName: 1, lastName: 1, email: 1 });
-        console.log(user)
-        if (!user) {
-            logger.error('User not found');
-            return res.status(StatusCodes.NOT_FOUND).json(apiUtils.getResponseMessage(StatusCodes.NOT_FOUND, 'User not found'));
-        }
-
-        logger.info('User fetched successfully');
-        return res.status(StatusCodes.OK).json(user);
-    } catch (error) {
-        logger.error(`Get user error: ${error.message}`);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(StatusCodes.INTERNAL_SERVER_ERROR, error.message));
+    const isPasswordValid = await user.matchPassword(password);
+    if (!isPasswordValid) {
+        return next(new ErrorResponse('Invalid credentials', StatusCodes.UNAUTHORIZED));
     }
-};
 
-export const getAdsByUserId = async (req, res) => {
-    logger.debug('Inside getAdsByUserId API');
+    const token = user.getSignedJwtToken();
 
-    try {
-        const { userId } = req.params;
-        const page = parseInt(req.query.page) || 1;
-        const limit = 5;
-        const skip = (page - 1) * limit;
+    res.status(StatusCodes.OK).json({
+        success: true,
+        message: 'Logged in successfully',
+        token,
+        userId: user._id,
+        firstName: user.firstName
+    });
+});
 
-        if (!userId) {
-            logger.error('Validation error: Missing userId');
-            return res.status(StatusCodes.BAD_REQUEST).json(apiUtils.getResponseMessage(StatusCodes.BAD_REQUEST, 'Missing userId'));
-        }
+// @desc    Verify token (Legacy/Internal)
+// @route   GET /api/users/verify
+// @access  Public
+export const verify = asyncHandler(async (req, res, next) => {
+    const authHeader = req.headers['authorization'];
 
-        const ads = await Ad.find({ postedBy: userId })
-            .skip(skip)
-            .limit(limit)
-            .select('title price images postedDate');
-
-        const totalAds = await Ad.countDocuments({ postedBy: userId });
-        const totalPages = Math.ceil(totalAds / limit);
-
-        logger.info('Ads fetched successfully');
-        return res.status(StatusCodes.OK).json({
-            ads,
-            pagination: {
-                currentPage: page,
-                totalPages,
-                totalAds,
-            },
-        });
-    } catch (error) {
-        logger.error(`Get ads error: ${error.message}`);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(apiUtils.getResponseMessage(StatusCodes.INTERNAL_SERVER_ERROR, error.message));
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return next(new ErrorResponse('Authorization header missing or invalid', StatusCodes.BAD_REQUEST));
     }
-};
+
+    const token = authHeader.split(' ')[1];
+    const verifiedData = await apiUtils.verifyAccessToken(token, process.env.TOKEN_SECRET);
+
+    res.status(StatusCodes.OK).json({
+        success: true,
+        data: verifiedData
+    });
+});
+
+// @desc    Get public user info
+// @route   GET /api/users/user/:friendId
+// @access  Private
+export const getUser = asyncHandler(async (req, res, next) => {
+    const { friendId } = req.params;
+
+    const user = await User.findById(friendId, { firstName: 1, lastName: 1, email: 1 });
+
+    if (!user) {
+        return next(new ErrorResponse('User not found', StatusCodes.NOT_FOUND));
+    }
+
+    res.status(StatusCodes.OK).json(user);
+});
+
+// @desc    Get ads by user ID (paginated)
+// @route   GET /api/users/user/items/:userId
+// @access  Private
+export const getAdsByUserId = asyncHandler(async (req, res, next) => {
+    const { userId } = req.params;
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = 5;
+    const skip = (page - 1) * limit;
+
+    const ads = await Ad.find({ postedBy: userId })
+        .skip(skip)
+        .limit(limit)
+        .select('title price images postedAt')
+        .sort('-postedAt');
+
+    const totalAds = await Ad.countDocuments({ postedBy: userId });
+    const totalPages = Math.ceil(totalAds / limit);
+
+    res.status(StatusCodes.OK).json({
+        success: true,
+        ads,
+        pagination: {
+            currentPage: page,
+            totalPages,
+            totalAds,
+        },
+    });
+});

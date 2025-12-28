@@ -37,48 +37,8 @@ const errorHandler = error => {
 };
 
 const server = http.createServer(app);
-import { Server } from 'socket.io';
-const io = new Server(server, {
-  cors: {
-    origin: '*', // Allow all origins
-    methods: ['GET', 'POST'], // Specify allowed methods
-    credentials: true // Allow credentials if needed
-  }
-});
-
-let users = [];
-
-// Handle user connection
-io.on('connection', (socket) => {
-  console.log('A user connected:', socket.id);
-
-  // Add user to the users array
-  socket.on('addUser', (userId) => {
-    if (!users.some(user => user.userId === userId)) {
-      users.push({ userId, socketId: socket.id });
-    }
-    console.log('Connected users:', users);
-  });
-
-  // Handle incoming messages
-  socket.on('sendMessage', ({ senderId, receiverId, text }) => {
-    const receiver = users.find(user => user.userId === receiverId);
-    if (receiver) {
-      // Emit the message to the receiver's socket
-      io.to(receiver.socketId).emit('getMessage', {
-        senderId,
-        text,
-      });
-    }
-  });
-
-  // Handle user disconnection
-  socket.on('disconnect', () => {
-    console.log('A user disconnected:', socket.id);
-    // Remove user from the users array
-    users = users.filter(user => user.socketId !== socket.id);
-  });
-});
+import { initSocket } from './utils/socket.js';
+initSocket(server);
 
 server.on('error', errorHandler);
 server.on('listening', () => {
