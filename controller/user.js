@@ -8,78 +8,82 @@ import ErrorResponse from '../utils/ErrorResponse.js';
 
 dotenv.config();
 
-// @desc    Register a new user
+// @desc    Register a new user with Firebase UID
 // @route   POST /api/users/signup
 // @access  Public
-export const signup = asyncHandler(async (req, res, next) => {
-    logger.debug('Inside signup request');
-    const { firstName, lastName, email, password } = req.body;
+export const register = asyncHandler(async (req, res, next) => {
+    console.log('--- REGISTER API CALLED ---');
+    logger.debug('Inside register request');
+    const { firstName, lastName, gender, address, profilePic } = req.body;
+    const { uid: firebaseUid, email, firebase } = req.firebaseUser;
+    const authType = firebase.sign_in_provider;
 
-    if (!firstName || !lastName || !email || !password) {
-        return next(new ErrorResponse('Please provide all required fields', StatusCodes.BAD_REQUEST));
+    if (!firstName || !lastName) {
+        return next(new ErrorResponse('Please provide first and last name', StatusCodes.BAD_REQUEST));
     }
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({
+        $or: [{ email }, { firebaseUid }]
+    });
+
     if (existingUser) {
-        return next(new ErrorResponse('User already exists', StatusCodes.BAD_REQUEST));
+        return next(new ErrorResponse('User with this email or Firebase UID already exists', StatusCodes.BAD_REQUEST));
     }
 
-    const user = await User.create({ firstName, lastName, email, password });
+    const user = await User.create({
+        firstName,
+        lastName,
+        email,
+        firebaseUid,
+        authType,
+        gender,
+        address,
+        profilePic: profilePic || ''
+    });
 
     res.status(StatusCodes.CREATED).json({
         success: true,
-        message: 'User created successfully'
+        message: 'User registered in database successfully',
+        data: user
     });
 });
 
-// @desc    Login user
-// @route   POST /api/users/signin
-// @access  Public
-export const signin = asyncHandler(async (req, res, next) => {
-    logger.debug('Inside signin request');
-    const { email, password } = req.body;
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+export const updateProfile = asyncHandler(async (req, res, next) => {
+    const { firstName, lastName, gender, address, profilePic } = req.body;
 
-    if (!email || !password) {
-        return next(new ErrorResponse('Please provide an email and password', StatusCodes.BAD_REQUEST));
-    }
+    // req.user is populated by firebaseAuth middleware
+    let user = await User.findById(req.user._id);
 
-    const user = await User.findOne({ email }).select('+password');
     if (!user) {
-        return next(new ErrorResponse('Invalid credentials', StatusCodes.UNAUTHORIZED));
+        return next(new ErrorResponse('User not found', StatusCodes.NOT_FOUND));
     }
 
-    const isPasswordValid = await user.matchPassword(password);
-    if (!isPasswordValid) {
-        return next(new ErrorResponse('Invalid credentials', StatusCodes.UNAUTHORIZED));
-    }
+    // Update fields if provided
+    if (firstName) user.firstName = firstName;
+    if (lastName) user.lastName = lastName;
+    if (gender) user.gender = gender;
+    if (address !== undefined) user.address = address;
+    if (profilePic) user.profilePic = profilePic;
 
-    const token = user.getSignedJwtToken();
+    await user.save();
 
     res.status(StatusCodes.OK).json({
         success: true,
-        message: 'Logged in successfully',
-        token,
-        userId: user._id,
-        firstName: user.firstName
+        message: 'Profile updated successfully',
+        data: user
     });
 });
 
-// @desc    Verify token (Legacy/Internal)
-// @route   GET /api/users/verify
-// @access  Public
-export const verify = asyncHandler(async (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return next(new ErrorResponse('Authorization header missing or invalid', StatusCodes.BAD_REQUEST));
-    }
-
-    const token = authHeader.split(' ')[1];
-    const verifiedData = await apiUtils.verifyAccessToken(token, process.env.TOKEN_SECRET);
-
+// @desc    Get current user profile (using Firebase Auth)
+// @route   GET /api/users/me
+// @access  Private
+export const getMe = asyncHandler(async (req, res, next) => {
     res.status(StatusCodes.OK).json({
         success: true,
-        data: verifiedData
+        data: req.user
     });
 });
 
@@ -89,7 +93,7 @@ export const verify = asyncHandler(async (req, res, next) => {
 export const getUser = asyncHandler(async (req, res, next) => {
     const { friendId } = req.params;
 
-    const user = await User.findById(friendId, { firstName: 1, lastName: 1, email: 1 });
+    const user = await User.findById(friendId, { firstName: 1, lastName: 1, email: 1, profilePic: 1 });
 
     if (!user) {
         return next(new ErrorResponse('User not found', StatusCodes.NOT_FOUND));

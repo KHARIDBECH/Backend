@@ -1,13 +1,15 @@
 import express from 'express';
-import verify_login_token from '../middleware/verify_login_token.js';
-import { signup, signin, verify, getAdsByUserId, getUser } from '../controller/user.js';
+import { register, getAdsByUserId, getUser, getMe, updateProfile } from '../controller/user.js';
+import firebaseAuth from '../middleware/firebaseAuth.js';
+import verifyFirebaseToken from '../middleware/verifyFirebaseToken.js';
+import optionalFirebaseAuth from '../middleware/optionalFirebaseAuth.js';
 
 const router = express.Router();
 
-router.post('/signup', signup);
-router.post('/signin', signin);
-router.get('/verifyjwt', verify);
-// router.get('/user',userCtrl.getUser);
-router.get('/user/items/:userId', verify_login_token, getAdsByUserId);
-router.get('/user/:friendId', verify_login_token, getUser);
+router.post('/register', verifyFirebaseToken, register);
+router.put('/profile', firebaseAuth, updateProfile);
+router.get('/me', optionalFirebaseAuth, getMe);
+router.get('/user/items/:userId', firebaseAuth, getAdsByUserId);
+router.get('/user/:friendId', firebaseAuth, getUser);
+
 export default router;
