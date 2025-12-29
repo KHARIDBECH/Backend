@@ -2070,3 +2070,243 @@
 2025-12-28T19:50:20.795Z: [31merror[39m: Error: No products available.
     at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T12:49:31.331Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T12:49:31.602Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T12:49:31.607Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T12:49:31.871Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T13:06:59.747Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:07:00.106Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T13:07:00.113Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:07:00.465Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T13:07:47.460Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:07:47.837Z: [34mdebug[39m: Inside register request
+2025-12-29T13:07:48.149Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T13:08:10.687Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:08:11.011Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T13:08:11.331Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:08:11.669Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T13:15:27.664Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:15:28.082Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:15:30.212Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:16:14.383Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:16:15.121Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:20:34.403Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:20:35.156Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:20:57.406Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:20:58.218Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:21:17.672Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:21:18.049Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:21:20.038Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:38:33.707Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:38:34.048Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T13:38:34.054Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:38:34.378Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T13:38:36.445Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:38:36.796Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T13:43:25.629Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:43:26.061Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:43:28.464Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:43:46.873Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:43:47.649Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:54:20.610Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:54:21.444Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:54:34.329Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:54:35.166Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:55:21.782Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:55:22.204Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:55:23.929Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:56:01.523Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:56:01.905Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T13:56:03.014Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:56:51.204Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:56:52.034Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:57:18.887Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T13:57:19.699Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T14:07:43.265Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T14:07:44.091Z: [32minfo[39m: Fetching products not posted by user: 69527d2497a910361c2d385f
+2025-12-29T14:07:44.540Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:08:05.861Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:08:06.648Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:08:34.533Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:08:34.896Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:08:35.325Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:08:35.719Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:08:39.733Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:08:40.164Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:08:41.814Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:08:42.235Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:08:53.494Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:08:53.911Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:08:54.323Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:08:54.716Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:09:03.394Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:09:03.799Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:09:06.128Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:09:06.541Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:09:11.526Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:09:11.918Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:09:12.342Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:09:12.752Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:09:34.428Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:09:34.822Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:09:37.090Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:09:37.501Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:09:49.911Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:09:50.323Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:09:52.731Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:09:53.130Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:11:28.905Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:11:29.713Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:11:32.274Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:11:32.697Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:11:38.948Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:11:39.339Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:11:39.749Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:11:40.122Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:13:02.163Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:13:02.596Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:13:04.745Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:13:05.117Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:13:12.914Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:13:13.302Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:13:13.699Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:13:14.079Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:13:35.792Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:13:36.197Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:13:38.201Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:13:38.591Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:14:30.314Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:14:30.714Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:14:32.528Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:14:32.913Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:62:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:20:18.940Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:20:19.351Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:20:22.326Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:21:09.754Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:21:10.153Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:21:11.916Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:22:04.471Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:22:05.295Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:22:28.026Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:22:28.387Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:22:29.625Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:22:32.062Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:22:32.458Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:22:33.241Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:22:34.748Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:22:35.113Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:22:35.940Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:22:38.279Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:22:38.728Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:22:39.591Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:22:56.911Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:22:57.300Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:22:58.144Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:23:01.926Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:23:02.358Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:23:03.150Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:23:47.207Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:23:47.570Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:23:48.930Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:23:53.988Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:23:54.380Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:23:55.456Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:24:29.098Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:24:29.863Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:25:19.780Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:25:48.328Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:25:49.146Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:26:24.471Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:26:30.197Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:26:34.579Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:26:38.989Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:26:42.303Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:27:00.547Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:27:01.339Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:29:19.079Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:29:19.840Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:29:44.847Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:29:58.454Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:33:25.197Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:33:25.598Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:68:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:33:45.309Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:33:48.739Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:33:49.127Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:68:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:34:17.818Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:34:35.485Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:34:35.853Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:68:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:37:01.994Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:37:13.463Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:37:13.900Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:70:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:37:13.911Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-29T14:37:14.343Z: [31merror[39m: Error: No products available.
+    at file:///D:/Kharid_Bech/Backend/controller/product.js:70:21
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2025-12-29T14:38:40.434Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-29T14:38:44.434Z: [32minfo[39m: Fetching all products for an unauthenticated user.

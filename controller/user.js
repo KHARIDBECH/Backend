@@ -106,7 +106,7 @@ export const getUser = asyncHandler(async (req, res, next) => {
 // @route   GET /api/users/user/items/:userId
 // @access  Private
 export const getAdsByUserId = asyncHandler(async (req, res, next) => {
-    const { userId } = req.params;
+    const userId = req.user._id;
     const page = parseInt(req.query.page, 10) || 1;
     const limit = 5;
     const skip = (page - 1) * limit;

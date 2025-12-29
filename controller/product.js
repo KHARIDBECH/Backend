@@ -55,8 +55,26 @@ export const getProduct = asyncHandler(async (req, res, next) => {
         : "Fetching all products for an unauthenticated user."
     );
 
-    const query = userId ? { postedBy: { $ne: userId } } : {};
-    const products = await Ad.find(query);
+    let products = [];
+
+    // 1. Try fetching by City if provided
+    if (req.query.city) {
+        products = await Ad.find({
+            'location.city': { $regex: req.query.city, $options: 'i' }
+        }).sort({ postedAt: -1 });
+    }
+
+    // 2. Fallback to State if city search yielded no results
+    if (products.length === 0 && req.query.state) {
+        products = await Ad.find({
+            'location.state': { $regex: req.query.state, $options: 'i' }
+        }).sort({ postedAt: -1 });
+    }
+
+    // 3. Default: fetch all if no city/state filter or both found nothing
+    if (products.length === 0 && !req.query.city && !req.query.state) {
+        products = await Ad.find({}).sort({ postedAt: -1 });
+    }
 
     if (!products.length) {
         return next(new ErrorResponse('No products available.', 404));
@@ -92,7 +110,7 @@ export const getAllCategories = asyncHandler(async (req, res, next) => {
     const { category } = req.params;
     const products = await Ad.find({
         category: { $regex: category, $options: 'i' }
-    });
+    }).sort({ postedAt: -1 });
 
     res.status(200).json({
         success: true,
