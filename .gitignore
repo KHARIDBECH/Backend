@@ -49,3 +49,6 @@ public
 
 # Windows
 Thumbs.db
+
+# Logs directory
+logs/
