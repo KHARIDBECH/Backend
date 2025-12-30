@@ -2310,3 +2310,30 @@
     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
 2025-12-29T14:38:40.434Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
 2025-12-29T14:38:44.434Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-30T05:43:57.734Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-30T05:45:10.107Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-30T05:45:11.491Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-30T05:45:15.236Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-30T05:45:15.613Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-30T05:45:49.012Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-30T05:50:28.048Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-30T05:50:28.816Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-30T05:50:51.744Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-30T05:50:52.666Z: [32minfo[39m: Fetching products not posted by user: 69517f57a310bc5ab8aadb3c
+2025-12-30T05:52:13.855Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-30T05:52:14.236Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-30T05:53:52.657Z: [34mdebug[39m: Inside register request
+2025-12-30T05:53:52.777Z: [32minfo[39m: Fetching all products for an unauthenticated user.
+2025-12-30T06:10:42.070Z: [31merror[39m: MongoNetworkTimeoutError: connection timed out
+    at connectionFailureError (D:\Kharid_Bech\Backend\node_modules\mongodb\lib\core\connection\connect.js:342:14)
+    at TLSSocket.<anonymous> (D:\Kharid_Bech\Backend\node_modules\mongodb\lib\core\connection\connect.js:310:16)
+    at Object.onceWrapper (node:events:622:28)
+    at TLSSocket.emit (node:events:508:28)
+    at Socket._onTimeout (node:net:604:8)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+2025-12-30T06:11:05.003Z: [32minfo[39m: Fetching products not posted by user: 695368f0cac5271624dcffc9
+2025-12-30T06:14:02.742Z: [32minfo[39m: Fetching products not posted by user: 695368f0cac5271624dcffc9
+2025-12-30T06:14:04.990Z: [32minfo[39m: Fetching products not posted by user: 695368f0cac5271624dcffc9
+2025-12-30T06:45:49.132Z: [33mwarn[39m: Optional Firebase token verification failed:
+2025-12-30T06:45:49.439Z: [33mwarn[39m: Optional Firebase token verification failed:

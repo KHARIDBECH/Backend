@@ -1,58 +1,14 @@
-import logger from '../utils/logger.js';
-import Joi from 'joi';
-import Ad from '../models/product.js';
-import Message from '../models/message.js';
-import Conversation from '../models/conversation.js';
+import { StatusCodes } from 'http-status-codes';
 import asyncHandler from '../middleware/asyncHandler.js';
-import ErrorResponse from '../utils/ErrorResponse.js';
-
-// Schemas for validation
-const createConvoSchema = Joi.object({
-    senderId: Joi.string().required(),
-    receiverId: Joi.string().required(),
-    productId: Joi.string().required(),
-});
-
-const addMessageSchema = Joi.object({
-    conversationId: Joi.string().required(),
-    senderId: Joi.string().required(),
-    text: Joi.string().required(),
-});
+import * as chatService from '../services/chat.service.js';
 
 // @desc    Create or get existing conversation
 // @route   POST /api/chatConvo
 // @access  Private
 export const createConvo = asyncHandler(async (req, res, next) => {
-    const { senderId, receiverId, productId } = req.body;
+    const conversation = await chatService.createConversation(req.body);
 
-    const { error } = createConvoSchema.validate(req.body);
-    if (error) {
-        return next(new ErrorResponse(error.details[0].message, 400));
-    }
-
-    const product = await Ad.findById(productId);
-    if (!product) {
-        return next(new ErrorResponse(`Product not found with id of ${productId}`, 404));
-    }
-
-    let conversation = await Conversation.findOne({
-        members: { $all: [senderId, receiverId] },
-        product: productId,
-    });
-
-    if (conversation) {
-        return res.status(200).json({
-            success: true,
-            data: conversation
-        });
-    }
-
-    conversation = await Conversation.create({
-        members: [senderId, receiverId],
-        product: productId,
-    });
-
-    res.status(201).json({
+    res.status(StatusCodes.CREATED).json({
         success: true,
         data: conversation
     });
@@ -62,17 +18,9 @@ export const createConvo = asyncHandler(async (req, res, next) => {
 // @route   GET /api/chatConvo/:userId
 // @access  Private
 export const getConvo = asyncHandler(async (req, res, next) => {
-    const { userId } = req.params;
+    const conversations = await chatService.getConversationsByUser(req.params.userId);
 
-    if (!userId) {
-        return next(new ErrorResponse('User ID is required', 400));
-    }
-
-    const conversations = await Conversation.find({
-        members: { $in: [userId] },
-    }).sort('-updatedAt');
-
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
         success: true,
         count: conversations.length,
         data: conversations
@@ -83,34 +31,26 @@ export const getConvo = asyncHandler(async (req, res, next) => {
 // @route   POST /api/chatMessages
 // @access  Private
 export const addMessage = asyncHandler(async (req, res, next) => {
-    const { error } = addMessageSchema.validate(req.body);
-    if (error) {
-        return next(new ErrorResponse(error.details[0].message, 400));
-    }
+    const message = await chatService.createMessage(req.body);
 
-    const message = await Message.create(req.body);
-
-    res.status(201).json({
+    res.status(StatusCodes.CREATED).json({
         success: true,
         data: message
     });
 });
 
-// @desc    Get messages for a conversation
+// @desc    Get messages for a conversation with pagination
 // @route   GET /api/chatMessages/:conversationId
 // @access  Private
 export const getMessage = asyncHandler(async (req, res, next) => {
-    const { conversationId } = req.params;
+    const result = await chatService.getMessagesByConversation(req.params.conversationId, req.query);
 
-    if (!conversationId) {
-        return next(new ErrorResponse('Conversation ID is required', 400));
-    }
-
-    const messages = await Message.find({ conversationId }).sort('createdAt');
-
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
         success: true,
-        count: messages.length,
-        data: messages
+        count: result.messages.length,
+        total: result.total,
+        page: result.page,
+        hasMore: result.hasMore,
+        data: result.messages
     });
 });

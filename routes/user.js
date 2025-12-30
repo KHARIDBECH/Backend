@@ -3,13 +3,15 @@ import { register, getAdsByUserId, getUser, getMe, updateProfile } from '../cont
 import firebaseAuth from '../middleware/firebaseAuth.js';
 import verifyFirebaseToken from '../middleware/verifyFirebaseToken.js';
 import optionalFirebaseAuth from '../middleware/optionalFirebaseAuth.js';
+import validate from '../middleware/validate.js';
+import { registerSchema, updateProfileSchema, paginationSchema, mongoIdParamSchema } from '../validations/user.validation.js';
 
 const router = express.Router();
 
-router.post('/register', verifyFirebaseToken, register);
-router.put('/profile', firebaseAuth, updateProfile);
+router.post('/register', verifyFirebaseToken, validate(registerSchema), register);
+router.put('/profile', firebaseAuth, validate(updateProfileSchema), updateProfile);
 router.get('/me', optionalFirebaseAuth, getMe);
-router.get('/my-listing', firebaseAuth, getAdsByUserId);
-router.get('/user/:friendId', firebaseAuth, getUser);
+router.get('/my-listing', firebaseAuth, validate(paginationSchema, 'query'), getAdsByUserId);
+router.get('/user/:friendId', firebaseAuth, validate(mongoIdParamSchema, 'params'), getUser);
 
 export default router;
