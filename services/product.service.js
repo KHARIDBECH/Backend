@@ -32,38 +32,51 @@ export const createProduct = async (productData, files, userId) => {
 
 export const getProducts = async (query) => {
     let products = [];
-    const { city, state } = query;
+    const { city, state, search } = query;
 
-    // 1. Try fetching by City if provided
+    // Build the query object
+    let queryObj = {};
+
+    // 1. Text Search (checks title, description, category, subcategory)
+    if (search) {
+        const searchRegex = { $regex: search, $options: 'i' };
+        queryObj.$or = [
+            { title: searchRegex },
+            { description: searchRegex },
+            { category: searchRegex },
+            { subcategory: searchRegex }
+        ];
+    }
+
+    // 2. Location Filtering
     if (city) {
-        products = await Ad.find({
-            'location.city': { $regex: city, $options: 'i' }
-        }).sort({ postedAt: -1 });
+        queryObj['location.city'] = { $regex: city, $options: 'i' };
+    } else if (state) {
+        // Only fallback to state if city is NOT provided
+        queryObj['location.state'] = { $regex: state, $options: 'i' };
     }
 
-    // 2. Fallback to State if city search yielded no results
-    if (products.length === 0 && state) {
-        products = await Ad.find({
-            'location.state': { $regex: state, $options: 'i' }
-        }).sort({ postedAt: -1 });
-    }
-
-    // 3. Default: fetch all if no city/state filter or both found nothing
-    if (products.length === 0 && !city && !state) {
-        products = await Ad.find({}).sort({ postedAt: -1 });
-    }
-
-    if (!products.length) {
-        throw new ErrorResponse('No products available.', 404);
-    }
+    // 3. Fetch Data
+    products = await Ad.find(queryObj).sort({ createdAt: -1 });
 
     return products;
 };
 
-export const getProductById = async (productId) => {
-    const product = await Ad.findById(productId).populate('postedBy', 'firstName lastName');
+export const getProductById = async (productIdOrSlug) => {
+    let product;
+
+    // Check if input is a valid MongoDB ID
+    if (productIdOrSlug.match(/^[0-9a-fA-F]{24}$/)) {
+        product = await Ad.findById(productIdOrSlug).populate('postedBy', 'firstName lastName');
+    }
+
+    // Fallback to searching by productUrl
     if (!product) {
-        throw new ErrorResponse(`Product not found with id of ${productId}`, 404);
+        product = await Ad.findOne({ slug: productIdOrSlug }).populate('postedBy', 'firstName lastName');
+    }
+
+    if (!product) {
+        throw new ErrorResponse(`Product not found with id or slug: ${productIdOrSlug}`, 404);
     }
     return product;
 };
@@ -71,7 +84,7 @@ export const getProductById = async (productId) => {
 export const getProductsByCategory = async (category) => {
     return await Ad.find({
         category: { $regex: category, $options: 'i' }
-    }).sort({ postedAt: -1 });
+    }).sort({ createdAt: -1 });
 };
 
 export const deleteProduct = async (productId, userId) => {
@@ -87,12 +100,16 @@ export const deleteProduct = async (productId, userId) => {
     }
 
     // Delete images from S3
+    // Delete images from S3
     const deletePromises = ad.images.map(image => {
-        const command = new DeleteObjectCommand({
-            Bucket: process.env.AWS_BUCKET_NAME,
-            Key: image.filename,
-        });
-        return s3.send(command);
+        if (image && image.filename) {
+            const command = new DeleteObjectCommand({
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: image.filename,
+            });
+            return s3.send(command).catch(err => console.error('Failed to delete S3 object:', err));
+        }
+        return Promise.resolve();
     });
 
     await Promise.all(deletePromises);
