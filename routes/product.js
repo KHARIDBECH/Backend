@@ -23,7 +23,7 @@ const parseJsonBody = (req, res, next) => {
 router.post('/', firebaseAuth, upload.array('images', 6), parseJsonBody, validate(createProductSchema), createProduct);
 router.get('/', optionalFirebaseAuth, validate(productQuerySchema, 'query'), getProduct);
 router.get('/itemdetail/:itemid', validate(itemIdParamSchema, 'params'), getProductDetail);
-router.get('/:category', validate(categoryParamSchema, 'params'), getAllCategories);
+router.get('/category/:category', validate(categoryParamSchema, 'params'), getAllCategories);
 router.delete('/:id', firebaseAuth, validate(productIdParamSchema, 'params'), deleteProduct);
 
 export default router;
