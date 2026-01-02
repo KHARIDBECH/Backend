@@ -30,18 +30,18 @@ export const initSocket = (server) => {
             logger.info(`User ${uidStr} registered with socket ${socket.id}`);
         });
 
-        socket.on('sendMessage', ({ senderId, receiverId, text }) => {
+        socket.on('sendMessage', ({ sender, receiverId, text }) => {
             const ridStr = String(receiverId);
             const receiver = users.find(user => String(user.userId) === ridStr);
 
             if (receiver && receiver.socketIds && receiver.socketIds.length > 0) {
                 receiver.socketIds.forEach(sId => {
                     io.to(sId).emit('getMessage', {
-                        senderId,
+                        senderId: sender, // Can be object or string ID
                         text,
                     });
                 });
-                logger.debug(`Message delivered from ${senderId} to ${ridStr}`);
+                logger.debug(`Message delivered from ${sender?._id || sender} to ${ridStr}`);
             } else {
                 logger.debug(`Receiver ${ridStr} offline, message stored in DB`);
             }
