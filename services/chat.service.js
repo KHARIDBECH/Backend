@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Message from '../models/message.js';
 import Conversation from '../models/conversation.js';
 import Ad from '../models/product.js';
@@ -29,11 +30,126 @@ export const createConversation = async (data) => {
 };
 
 export const getConversationsByUser = async (userId) => {
-    return await Conversation.find({
-        members: { $in: [userId] },
-    })
-        .populate('members', 'firstName lastName profilePic')
-        .sort('-updatedAt');
+    const userIdObj = new mongoose.Types.ObjectId(userId);
+
+    const conversations = await Conversation.aggregate([
+        { $match: { members: userIdObj } },
+        { $sort: { updatedAt: -1 } },
+        {
+            $lookup: {
+                from: 'messages',
+                let: { convoId: '$_id' },
+                pipeline: [
+                    { $match: { $expr: { $eq: ['$conversationId', '$$convoId'] } } },
+                    { $sort: { createdAt: -1 } },
+                    {
+                        $group: {
+                            _id: '$conversationId',
+                            lastMessage: { $first: '$$ROOT' },
+                            unreadCount: {
+                                $sum: {
+                                    $cond: [
+                                        {
+                                            $and: [
+                                                { $ne: ['$senderId', userIdObj] },
+                                                { $eq: ['$isRead', false] }
+                                            ]
+                                        },
+                                        1,
+                                        0
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                ],
+                as: 'chatInfo'
+            }
+        },
+        {
+            $unwind: {
+                path: '$chatInfo',
+                preserveNullAndEmptyArrays: true
+            }
+        },
+        {
+            $addFields: {
+                lastMessage: '$chatInfo.lastMessage',
+                unreadCount: { $ifNull: ['$chatInfo.unreadCount', 0] }
+            }
+        },
+        { $project: { chatInfo: 0 } },
+        // Populate Members
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'members',
+                foreignField: '_id',
+                as: 'members'
+            }
+        },
+        // Filter member fields to match what frontend expects
+        {
+            $addFields: {
+                members: {
+                    $map: {
+                        input: '$members',
+                        as: 'm',
+                        in: {
+                            _id: '$$m._id',
+                            firstName: '$$m.firstName',
+                            lastName: '$$m.lastName',
+                            profilePic: '$$m.profilePic'
+                        }
+                    }
+                }
+            }
+        },
+        // Populate Product
+        {
+            $lookup: {
+                from: 'ads',
+                localField: 'product',
+                foreignField: '_id',
+                as: 'product'
+            }
+        },
+        {
+            $addFields: {
+                product: { $arrayElemAt: ['$product', 0] }
+            }
+        }
+    ]);
+
+    return conversations;
+};
+
+export const findConversation = async (senderId, receiverId, productId) => {
+    return await Conversation.findOne({
+        members: { $all: [senderId, receiverId] },
+        product: productId,
+    }).populate('members', 'firstName lastName profilePic');
+};
+
+export const getUnreadCountByUserId = async (userId) => {
+    return await Message.countDocuments({
+        senderId: { $ne: userId },
+        isRead: false,
+        conversationId: {
+            $in: await Conversation.find({ members: userId }).distinct('_id')
+        }
+    });
+};
+
+export const markMessagesAsRead = async (conversationId, userId) => {
+    return await Message.updateMany(
+        {
+            conversationId,
+            senderId: { $ne: userId },
+            isRead: false
+        },
+        { $set: { isRead: true } }
+    );
 };
 
 export const createMessage = async (data) => {
