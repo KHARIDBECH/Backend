@@ -1,4 +1,5 @@
 import { Server } from 'socket.io';
+import logger from './logger.js';
 
 let io;
 let users = [];
@@ -13,28 +14,45 @@ export const initSocket = (server) => {
     });
 
     io.on('connection', (socket) => {
-        console.log('A user connected:', socket.id);
+        logger.info(`User connected: ${socket.id}`);
 
         socket.on('addUser', (userId) => {
-            if (!users.some(user => user.userId === userId)) {
-                users.push({ userId, socketId: socket.id });
+            const uidStr = String(userId);
+            let user = users.find(u => String(u.userId) === uidStr);
+
+            if (user) {
+                if (!user.socketIds.includes(socket.id)) {
+                    user.socketIds.push(socket.id);
+                }
+            } else {
+                users.push({ userId: uidStr, socketIds: [socket.id] });
             }
-            console.log('Connected users:', users);
+            logger.info(`User ${uidStr} registered with socket ${socket.id}`);
         });
 
         socket.on('sendMessage', ({ senderId, receiverId, text }) => {
-            const receiver = users.find(user => user.userId === receiverId);
-            if (receiver) {
-                io.to(receiver.socketId).emit('getMessage', {
-                    senderId,
-                    text,
+            const ridStr = String(receiverId);
+            const receiver = users.find(user => String(user.userId) === ridStr);
+
+            if (receiver && receiver.socketIds && receiver.socketIds.length > 0) {
+                receiver.socketIds.forEach(sId => {
+                    io.to(sId).emit('getMessage', {
+                        senderId,
+                        text,
+                    });
                 });
+                logger.debug(`Message delivered from ${senderId} to ${ridStr}`);
+            } else {
+                logger.debug(`Receiver ${ridStr} offline, message stored in DB`);
             }
         });
 
         socket.on('disconnect', () => {
-            console.log('A user disconnected:', socket.id);
-            users = users.filter(user => user.socketId !== socket.id);
+            logger.info(`Socket disconnected: ${socket.id}`);
+            users = users.map(user => ({
+                ...user,
+                socketIds: user.socketIds.filter(sId => sId !== socket.id)
+            })).filter(user => user.socketIds.length > 0);
         });
     });
 
