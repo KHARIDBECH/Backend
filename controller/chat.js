@@ -10,6 +10,7 @@ export const createConvo = asyncHandler(async (req, res, next) => {
 
     res.status(StatusCodes.CREATED).json({
         success: true,
+        message: 'Conversation created or retrieved successfully',
         data: conversation
     });
 });
@@ -22,6 +23,7 @@ export const getConvo = asyncHandler(async (req, res, next) => {
 
     res.status(StatusCodes.OK).json({
         success: true,
+        message: 'Conversations fetched successfully',
         count: conversations.length,
         data: conversations
     });
@@ -36,6 +38,7 @@ export const findConvo = asyncHandler(async (req, res, next) => {
 
     res.status(StatusCodes.OK).json({
         success: true,
+        message: conversation ? 'Conversation found' : 'No existing conversation found',
         data: conversation // Can be null if not found
     });
 });
@@ -48,6 +51,7 @@ export const getUnreadCount = asyncHandler(async (req, res, next) => {
 
     res.status(StatusCodes.OK).json({
         success: true,
+        message: 'Unread message count fetched successfully',
         data: { count }
     });
 });
@@ -72,6 +76,7 @@ export const addMessage = asyncHandler(async (req, res, next) => {
 
     res.status(StatusCodes.CREATED).json({
         success: true,
+        message: 'Message sent successfully',
         data: message
     });
 });
@@ -84,6 +89,7 @@ export const getMessage = asyncHandler(async (req, res, next) => {
 
     res.status(StatusCodes.OK).json({
         success: true,
+        message: 'Messages fetched successfully',
         count: result.messages.length,
         total: result.total,
         page: result.page,

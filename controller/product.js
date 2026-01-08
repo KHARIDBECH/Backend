@@ -23,6 +23,7 @@ export const getProduct = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
+        message: 'Products fetched successfully',
         count: products.length,
         data: products
     });
@@ -36,6 +37,7 @@ export const getProductDetail = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
+        message: 'Product detail fetched successfully',
         data: product
     });
 });
@@ -48,6 +50,7 @@ export const getAllCategories = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
+        message: `Products for category ${req.params.category} fetched successfully`,
         count: products.length,
         data: products
     });

@@ -32,9 +32,14 @@ export const updateProfile = asyncHandler(async (req, res, next) => {
 // @route   GET /api/users/me
 // @access  Private
 export const getMe = asyncHandler(async (req, res, next) => {
+    const favoriteIds = await userService.getUserFavoriteIds(req.user._id);
     res.status(StatusCodes.OK).json({
         success: true,
-        data: req.user
+        message: 'User profile fetched',
+        data: {
+            ...req.user.toObject(),
+            favoriteIds
+        }
     });
 });
 
@@ -43,7 +48,11 @@ export const getMe = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const getUser = asyncHandler(async (req, res, next) => {
     const user = await userService.getUserById(req.params.friendId, 'firstName lastName email profilePic');
-    res.status(StatusCodes.OK).json(user);
+    res.status(StatusCodes.OK).json({
+        success: true,
+        message: 'User found',
+        data: user
+    });
 });
 
 // @desc    Get ads by user ID (paginated)
@@ -55,5 +64,29 @@ export const getAdsByUserId = asyncHandler(async (req, res, next) => {
     res.status(StatusCodes.OK).json({
         success: true,
         ...result
+    });
+});
+
+// @desc    Toggle product favorite
+// @route   POST /api/users/favorites/:productId
+// @access  Private
+export const toggleFavorite = asyncHandler(async (req, res, next) => {
+    const result = await userService.toggleFavorite(req.user._id, req.params.productId);
+    res.status(StatusCodes.OK).json({
+        success: true,
+        message: 'Favorite status toggled',
+        data: result
+    });
+});
+
+// @desc    Get user favorites
+// @route   GET /api/users/favorites
+// @access  Private
+export const getFavorites = asyncHandler(async (req, res, next) => {
+    const favorites = await userService.getFavorites(req.user._id);
+    res.status(StatusCodes.OK).json({
+        success: true,
+        message: 'Favorites fetched successfully',
+        data: favorites
     });
 });

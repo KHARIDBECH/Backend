@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, getAdsByUserId, getUser, getMe, updateProfile } from '../controller/user.js';
+import { register, getAdsByUserId, getUser, getMe, updateProfile, toggleFavorite, getFavorites } from '../controller/user.js';
 import firebaseAuth from '../middleware/firebaseAuth.js';
 import verifyFirebaseToken from '../middleware/verifyFirebaseToken.js';
 import optionalFirebaseAuth from '../middleware/optionalFirebaseAuth.js';
@@ -13,5 +13,7 @@ router.put('/profile', firebaseAuth, validate(updateProfileSchema), updateProfil
 router.get('/me', optionalFirebaseAuth, getMe);
 router.get('/my-listing', firebaseAuth, validate(paginationSchema, 'query'), getAdsByUserId);
 router.get('/user/:friendId', firebaseAuth, validate(mongoIdParamSchema, 'params'), getUser);
+router.post('/favorites/:productId', firebaseAuth, toggleFavorite);
+router.get('/favorites', firebaseAuth, getFavorites);
 
 export default router;

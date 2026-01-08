@@ -1,5 +1,6 @@
 import User from '../models/user.js';
 import Ad from '../models/product.js';
+import Favorite from '../models/favorite.js';
 import ErrorResponse from '../utils/ErrorResponse.js';
 import { StatusCodes } from 'http-status-codes';
 
@@ -73,4 +74,47 @@ export const getUserAds = async (userId, query) => {
             totalAds
         }
     };
+};
+
+export const toggleFavorite = async (userId, productId) => {
+    const ad = await Ad.findById(productId);
+    if (!ad) {
+        throw new ErrorResponse('Product not found', StatusCodes.NOT_FOUND);
+    }
+
+    // Check if user is favoriting their own ad
+    if (ad.postedBy.toString() === userId.toString()) {
+        throw new ErrorResponse('You cannot favorite your own listing', StatusCodes.BAD_REQUEST);
+    }
+
+    const favorite = await Favorite.findOne({ user: userId, product: productId });
+
+    if (favorite) {
+        await favorite.deleteOne();
+        return { isFavorite: false };
+    } else {
+        await Favorite.create({ user: userId, product: productId });
+        return { isFavorite: true };
+    }
+};
+
+export const getFavorites = async (userId) => {
+    const favorites = await Favorite.find({ user: userId })
+        .populate({
+            path: 'product',
+            select: 'title price images location condition createdAt postedBy',
+            populate: {
+                path: 'postedBy',
+                select: 'firstName lastName'
+            }
+        })
+        .sort('-createdAt');
+
+    // Filter out favorites where the product might have been deleted but the favorite record remained
+    return favorites.filter(fav => fav.product).map(fav => fav.product);
+};
+
+export const getUserFavoriteIds = async (userId) => {
+    const favorites = await Favorite.find({ user: userId }).select('product');
+    return favorites.map(fav => fav.product.toString());
 };
