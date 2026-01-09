@@ -1,18 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
 import asyncHandler from '../middleware/asyncHandler.js';
 import * as userService from '../services/user.service.js';
+import { sendResponse } from '../utils/responseHandler.js';
 
 // @desc    Register a new user with Firebase UID
 // @route   POST /api/users/register
 // @access  Public
 export const register = asyncHandler(async (req, res, next) => {
     const user = await userService.createUser(req.body, req.firebaseUser);
-
-    res.status(StatusCodes.CREATED).json({
-        success: true,
-        message: 'User registered in database successfully',
-        data: user
-    });
+    return sendResponse(res, StatusCodes.CREATED, user, 'User registered in database successfully');
 });
 
 // @desc    Update user profile
@@ -20,12 +16,7 @@ export const register = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const updateProfile = asyncHandler(async (req, res, next) => {
     const user = await userService.updateProfile(req.user._id, req.body);
-
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: 'Profile updated successfully',
-        data: user
-    });
+    return sendResponse(res, StatusCodes.OK, user, 'Profile updated successfully');
 });
 
 // @desc    Get current user profile (using Firebase Auth)
@@ -33,14 +24,11 @@ export const updateProfile = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const getMe = asyncHandler(async (req, res, next) => {
     const favoriteIds = await userService.getUserFavoriteIds(req.user._id);
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: 'User profile fetched',
-        data: {
-            ...req.user.toObject(),
-            favoriteIds
-        }
-    });
+    const data = {
+        ...req.user.toObject(),
+        favoriteIds
+    };
+    return sendResponse(res, StatusCodes.OK, data, 'User profile fetched');
 });
 
 // @desc    Get public user info
@@ -48,11 +36,7 @@ export const getMe = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const getUser = asyncHandler(async (req, res, next) => {
     const user = await userService.getUserById(req.params.friendId, 'firstName lastName email profilePic');
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: 'User found',
-        data: user
-    });
+    return sendResponse(res, StatusCodes.OK, user, 'User found');
 });
 
 // @desc    Get ads by user ID (paginated)
@@ -60,11 +44,8 @@ export const getUser = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const getAdsByUserId = asyncHandler(async (req, res, next) => {
     const result = await userService.getUserAds(req.user._id, req.query);
-
-    res.status(StatusCodes.OK).json({
-        success: true,
-        ...result
-    });
+    // Since result already contains ads and pagination, we just wrap it
+    return sendResponse(res, StatusCodes.OK, result, 'User ads fetched successfully');
 });
 
 // @desc    Toggle product favorite
@@ -72,11 +53,7 @@ export const getAdsByUserId = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const toggleFavorite = asyncHandler(async (req, res, next) => {
     const result = await userService.toggleFavorite(req.user._id, req.params.productId);
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: 'Favorite status toggled',
-        data: result
-    });
+    return sendResponse(res, StatusCodes.OK, result, 'Favorite status toggled');
 });
 
 // @desc    Get user favorites
@@ -84,9 +61,5 @@ export const toggleFavorite = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const getFavorites = asyncHandler(async (req, res, next) => {
     const favorites = await userService.getFavorites(req.user._id);
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: 'Favorites fetched successfully',
-        data: favorites
-    });
+    return sendResponse(res, StatusCodes.OK, favorites, 'Favorites fetched successfully');
 });

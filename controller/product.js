@@ -1,18 +1,15 @@
 import asyncHandler from '../middleware/asyncHandler.js';
 import * as productService from '../services/product.service.js';
 import { UNDERSCOREID } from '../utils/globalConstant.js';
+import { sendResponse } from '../utils/responseHandler.js';
+import { StatusCodes } from 'http-status-codes';
 
 // @desc    Create a new product
 // @route   POST /api/product
 // @access  Private
 export const createProduct = asyncHandler(async (req, res, next) => {
     const product = await productService.createProduct(req.body, req.files, req.user[UNDERSCOREID]);
-
-    res.status(201).json({
-        success: true,
-        message: 'Product created successfully!',
-        data: product
-    });
+    return sendResponse(res, StatusCodes.CREATED, product, 'Product created successfully!');
 });
 
 // @desc    Get all products (optionally excluding current user's)
@@ -20,13 +17,7 @@ export const createProduct = asyncHandler(async (req, res, next) => {
 // @access  Public
 export const getProduct = asyncHandler(async (req, res, next) => {
     const products = await productService.getProducts(req.query);
-
-    res.status(200).json({
-        success: true,
-        message: 'Products fetched successfully',
-        count: products.length,
-        data: products
-    });
+    return sendResponse(res, StatusCodes.OK, products, 'Products fetched successfully');
 });
 
 // @desc    Get single product detail
@@ -34,12 +25,7 @@ export const getProduct = asyncHandler(async (req, res, next) => {
 // @access  Public
 export const getProductDetail = asyncHandler(async (req, res, next) => {
     const product = await productService.getProductById(req.params.itemid);
-
-    res.status(200).json({
-        success: true,
-        message: 'Product detail fetched successfully',
-        data: product
-    });
+    return sendResponse(res, StatusCodes.OK, product, 'Product detail fetched successfully');
 });
 
 // @desc    Get products by category
@@ -47,13 +33,7 @@ export const getProductDetail = asyncHandler(async (req, res, next) => {
 // @access  Public
 export const getAllCategories = asyncHandler(async (req, res, next) => {
     const products = await productService.getProductsByCategory(req.params.category);
-
-    res.status(200).json({
-        success: true,
-        message: `Products for category ${req.params.category} fetched successfully`,
-        count: products.length,
-        data: products
-    });
+    return sendResponse(res, StatusCodes.OK, products, `Products for category ${req.params.category} fetched successfully`);
 });
 
 // @desc    Delete product
@@ -61,10 +41,5 @@ export const getAllCategories = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const deleteProduct = asyncHandler(async (req, res, next) => {
     await productService.deleteProduct(req.params.id, req.user[UNDERSCOREID]);
-
-    res.status(200).json({
-        success: true,
-        message: 'Ad deleted successfully',
-        data: {}
-    });
+    return sendResponse(res, StatusCodes.OK, {}, 'Ad deleted successfully');
 });

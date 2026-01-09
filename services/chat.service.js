@@ -1,38 +1,39 @@
 import mongoose from 'mongoose';
-import Message from '../models/message.js';
-import Conversation from '../models/conversation.js';
-import Ad from '../models/product.js';
+import * as chatRepository from '../repositories/chat.repository.js';
+import * as productRepository from '../repositories/product.repository.js';
 import ErrorResponse from '../utils/ErrorResponse.js';
 
 export const createConversation = async (data) => {
     const { senderId, receiverId, productId } = data;
 
-    const product = await Ad.findById(productId);
+    const product = await productRepository.findById(productId);
     if (!product) {
         throw new ErrorResponse(`Product not found with id of ${productId}`, 404);
     }
 
-    let conversation = await Conversation.findOne({
-        members: { $all: [senderId, receiverId] },
-        product: productId,
-    }).populate('members', 'firstName lastName profilePic');
+    let conversation = await chatRepository.findConversationPopulated(
+        [senderId, receiverId],
+        productId,
+        'members',
+        'firstName lastName profilePic'
+    );
 
     if (conversation) {
         return conversation;
     }
 
-    conversation = await Conversation.create({
+    conversation = await chatRepository.createConversation({
         members: [senderId, receiverId],
         product: productId,
     });
 
-    return await Conversation.findById(conversation._id).populate('members', 'firstName lastName profilePic');
+    return await chatRepository.findConversationByIdPopulated(conversation._id, 'members', 'firstName lastName profilePic');
 };
 
 export const getConversationsByUser = async (userId) => {
     const userIdObj = new mongoose.Types.ObjectId(userId);
 
-    const conversations = await Conversation.aggregate([
+    const pipeline = [
         { $match: { members: userIdObj } },
         { $sort: { updatedAt: -1 } },
         {
@@ -119,30 +120,32 @@ export const getConversationsByUser = async (userId) => {
                 product: { $arrayElemAt: ['$product', 0] }
             }
         }
-    ]);
+    ];
 
-    return conversations;
+    return await chatRepository.getConversationsWithAggregate(pipeline);
 };
 
 export const findConversation = async (senderId, receiverId, productId) => {
-    return await Conversation.findOne({
-        members: { $all: [senderId, receiverId] },
-        product: productId,
-    }).populate('members', 'firstName lastName profilePic');
+    return await chatRepository.findConversationPopulated(
+        [senderId, receiverId],
+        productId,
+        'members',
+        'firstName lastName profilePic'
+    );
 };
 
 export const getUnreadCountByUserId = async (userId) => {
-    return await Message.countDocuments({
+    return await chatRepository.countMessages({
         senderId: { $ne: userId },
         isRead: false,
         conversationId: {
-            $in: await Conversation.find({ members: userId }).distinct('_id')
+            $in: await chatRepository.distinctConversationIds(userId)
         }
     });
 };
 
 export const markMessagesAsRead = async (conversationId, userId) => {
-    return await Message.updateMany(
+    return await chatRepository.updateManyMessages(
         {
             conversationId,
             senderId: { $ne: userId },
@@ -153,25 +156,28 @@ export const markMessagesAsRead = async (conversationId, userId) => {
 };
 
 export const createMessage = async (data) => {
-    const message = await Message.create(data);
+    const message = await chatRepository.createMessage(data);
 
     // Update conversation updatedAt timestamp
-    await Conversation.findByIdAndUpdate(data.conversationId, { updatedAt: Date.now() });
+    await chatRepository.findConversationByIdAndUpdate(data.conversationId, { updatedAt: Date.now() });
 
-    return await Message.findById(message._id).populate('senderId', 'firstName lastName profilePic');
+    return await chatRepository.findMessageByIdPopulated(message._id, 'senderId', 'firstName lastName profilePic');
 };
 
 export const getMessagesByConversation = async (conversationId, query) => {
     const { page, limit } = query;
     const skip = (page - 1) * limit;
 
-    const messages = await Message.find({ conversationId })
-        .sort('-createdAt')
-        .skip(skip)
-        .limit(limit)
-        .populate('senderId', 'firstName lastName profilePic');
+    const messages = await chatRepository.findMessagesByConversationPopulated(
+        conversationId,
+        skip,
+        limit,
+        '-createdAt',
+        'senderId',
+        'firstName lastName profilePic'
+    );
 
-    const total = await Message.countDocuments({ conversationId });
+    const total = await chatRepository.countMessages({ conversationId });
 
     return {
         messages: messages.reverse(),

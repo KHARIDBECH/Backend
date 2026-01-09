@@ -1,9 +1,9 @@
-import Ad from '../models/product.js';
+import * as productRepository from '../repositories/product.repository.js';
 import { s3 } from '../middleware/multer.js';
 import { DeleteObjectCommand } from '@aws-sdk/client-s3';
 import ErrorResponse from '../utils/ErrorResponse.js';
-import { UNDERSCOREID } from '../utils/globalConstant.js';
 import dotenv from 'dotenv';
+import { envConfig } from '../config/env.config.js';
 
 dotenv.config();
 
@@ -21,17 +21,14 @@ export const createProduct = async (productData, files, userId) => {
         throw new ErrorResponse('Failed to obtain image URLs from storage.', 500);
     }
 
-    const product = new Ad({
+    return await productRepository.create({
         ...productData,
         postedBy: userId,
         images
     });
-
-    return await product.save();
 };
 
 export const getProducts = async (query) => {
-    let products = [];
     const { city, state, search } = query;
 
     // Build the query object
@@ -57,9 +54,7 @@ export const getProducts = async (query) => {
     }
 
     // 3. Fetch Data
-    products = await Ad.find(queryObj).sort({ createdAt: -1 });
-
-    return products;
+    return await productRepository.find(queryObj);
 };
 
 export const getProductById = async (productIdOrSlug) => {
@@ -67,12 +62,12 @@ export const getProductById = async (productIdOrSlug) => {
 
     // Check if input is a valid MongoDB ID
     if (productIdOrSlug.match(/^[0-9a-fA-F]{24}$/)) {
-        product = await Ad.findById(productIdOrSlug).populate('postedBy', 'firstName lastName');
+        product = await productRepository.findByIdPopulated(productIdOrSlug, 'postedBy', 'firstName lastName');
     }
 
     // Fallback to searching by productUrl
     if (!product) {
-        product = await Ad.findOne({ slug: productIdOrSlug }).populate('postedBy', 'firstName lastName');
+        product = await productRepository.findOnePopulated({ slug: productIdOrSlug }, 'postedBy', 'firstName lastName');
     }
 
     if (!product) {
@@ -82,13 +77,13 @@ export const getProductById = async (productIdOrSlug) => {
 };
 
 export const getProductsByCategory = async (category) => {
-    return await Ad.find({
+    return await productRepository.find({
         category: { $regex: category, $options: 'i' }
-    }).sort({ createdAt: -1 });
+    });
 };
 
 export const deleteProduct = async (productId, userId) => {
-    const ad = await Ad.findById(productId);
+    const ad = await productRepository.findById(productId);
 
     if (!ad) {
         throw new ErrorResponse(`Ad not found with id of ${productId}`, 404);
@@ -100,11 +95,10 @@ export const deleteProduct = async (productId, userId) => {
     }
 
     // Delete images from S3
-    // Delete images from S3
     const deletePromises = ad.images.map(image => {
         if (image && image.filename) {
             const command = new DeleteObjectCommand({
-                Bucket: process.env.AWS_BUCKET_NAME,
+                Bucket: envConfig.aws.bucketName,
                 Key: image.filename,
             });
             return s3.send(command).catch(err => console.error('Failed to delete S3 object:', err));
@@ -113,7 +107,7 @@ export const deleteProduct = async (productId, userId) => {
     });
 
     await Promise.all(deletePromises);
-    await ad.deleteOne();
+    await productRepository.deleteById(productId);
 
     return true;
 };

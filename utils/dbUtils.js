@@ -1,26 +1,26 @@
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-dotenv.config();
+import { envConfig } from '../config/env.config.js';
+import logger from './logger.js';
 
-const URI=process.env.MONGO_URI;
+const URI = envConfig.mongoose.url;
 
-export const mongoConnect=()=>{
-    mongoose.connect(URI,{useFindAndModify:false,useNewUrlParser:true,useUnifiedTopology:true})
-    .then(()=>{
-        console.log('Successfully connected to DB');
-    })
-    .catch((error) => {
-        console.log('Unable to connect to MongoDB Atlas!');
-        console.error(error);
-      });
+export const mongoConnect = () => {
+    mongoose.connect(URI, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true })
+        .then(() => {
+            logger.info('Successfully connected to DB');
+        })
+        .catch((error) => {
+            logger.error('Unable to connect to MongoDB Atlas!');
+            logger.error(error);
+        });
 }
 
-export const mongoDisConnect=()=>{
+export const mongoDisConnect = () => {
     mongoose.disconnect()
-    .then(()=>{
-        console.log('DB disconnected');
-    })
-    .catch((err)=>{
-        console.log(`Error :: ${err}`);
-    })
+        .then(() => {
+            logger.info('DB disconnected');
+        })
+        .catch((err) => {
+            logger.error(`Error :: ${err}`);
+        })
 }

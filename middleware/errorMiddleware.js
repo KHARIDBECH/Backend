@@ -1,5 +1,6 @@
 import ErrorResponse from '../utils/ErrorResponse.js';
 import logger from '../utils/logger.js';
+import { sendError } from '../utils/responseHandler.js';
 
 const errorHandler = (err, req, res, next) => {
     let error = { ...err };
@@ -26,10 +27,7 @@ const errorHandler = (err, req, res, next) => {
         error = new ErrorResponse(message, 400);
     }
 
-    res.status(error.statusCode || 500).json({
-        success: false,
-        error: error.message || 'Server Error',
-    });
+    return sendError(res, error.statusCode || 500, error.message || 'Server Error');
 };
 
 export default errorHandler;

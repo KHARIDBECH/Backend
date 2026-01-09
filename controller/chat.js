@@ -1,18 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
 import asyncHandler from '../middleware/asyncHandler.js';
 import * as chatService from '../services/chat.service.js';
+import { sendResponse } from '../utils/responseHandler.js';
 
 // @desc    Create or get existing conversation
 // @route   POST /api/chatConvo
 // @access  Private
 export const createConvo = asyncHandler(async (req, res, next) => {
     const conversation = await chatService.createConversation(req.body);
-
-    res.status(StatusCodes.CREATED).json({
-        success: true,
-        message: 'Conversation created or retrieved successfully',
-        data: conversation
-    });
+    return sendResponse(res, StatusCodes.CREATED, conversation, 'Conversation created or retrieved successfully');
 });
 
 // @desc    Get conversations for a user
@@ -20,13 +16,7 @@ export const createConvo = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const getConvo = asyncHandler(async (req, res, next) => {
     const conversations = await chatService.getConversationsByUser(req.params.userId);
-
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: 'Conversations fetched successfully',
-        count: conversations.length,
-        data: conversations
-    });
+    return sendResponse(res, StatusCodes.OK, conversations, 'Conversations fetched successfully');
 });
 
 // @desc    Find a specific conversation
@@ -35,12 +25,7 @@ export const getConvo = asyncHandler(async (req, res, next) => {
 export const findConvo = asyncHandler(async (req, res, next) => {
     const { receiverId, productId } = req.query;
     const conversation = await chatService.findConversation(req.user._id, receiverId, productId);
-
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: conversation ? 'Conversation found' : 'No existing conversation found',
-        data: conversation // Can be null if not found
-    });
+    return sendResponse(res, StatusCodes.OK, conversation, conversation ? 'Conversation found' : 'No existing conversation found');
 });
 
 // @desc    Get total unread message count for a user
@@ -48,12 +33,7 @@ export const findConvo = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const getUnreadCount = asyncHandler(async (req, res, next) => {
     const count = await chatService.getUnreadCountByUserId(req.user._id);
-
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: 'Unread message count fetched successfully',
-        data: { count }
-    });
+    return sendResponse(res, StatusCodes.OK, { count }, 'Unread message count fetched successfully');
 });
 
 // @desc    Mark messages in a conversation as read
@@ -61,11 +41,7 @@ export const getUnreadCount = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const markAsRead = asyncHandler(async (req, res, next) => {
     await chatService.markMessagesAsRead(req.params.conversationId, req.user._id);
-
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: 'Messages marked as read'
-    });
+    return sendResponse(res, StatusCodes.OK, {}, 'Messages marked as read');
 });
 
 // @desc    Add a message to a conversation
@@ -73,12 +49,7 @@ export const markAsRead = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const addMessage = asyncHandler(async (req, res, next) => {
     const message = await chatService.createMessage(req.body);
-
-    res.status(StatusCodes.CREATED).json({
-        success: true,
-        message: 'Message sent successfully',
-        data: message
-    });
+    return sendResponse(res, StatusCodes.CREATED, message, 'Message sent successfully');
 });
 
 // @desc    Get messages for a conversation with pagination
@@ -86,14 +57,5 @@ export const addMessage = asyncHandler(async (req, res, next) => {
 // @access  Private
 export const getMessage = asyncHandler(async (req, res, next) => {
     const result = await chatService.getMessagesByConversation(req.params.conversationId, req.query);
-
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: 'Messages fetched successfully',
-        count: result.messages.length,
-        total: result.total,
-        page: result.page,
-        hasMore: result.hasMore,
-        data: result.messages
-    });
+    return sendResponse(res, StatusCodes.OK, result, 'Messages fetched successfully');
 });

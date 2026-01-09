@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
@@ -9,8 +8,7 @@ import productRoutes from './routes/product.js';
 import conversationRoutes from './routes/conversation.js';
 import messageRoutes from './routes/messages.js';
 import errorHandler from './middleware/errorMiddleware.js';
-
-dotenv.config();
+import { envConfig } from './config/env.config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,15 +24,16 @@ app.use(cors());
 // Static Middleware 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-// Mount routes
-app.use("/api/users", userRoutes);
-app.use("/api/product", productRoutes);
-app.use("/api/chatConvo", conversationRoutes);
-app.use("/api/chatMessages", messageRoutes);
+// Mount routes with Versioning
+const apiV1 = "/api/v1";
+app.use(`${apiV1}/users`, userRoutes);
+app.use(`${apiV1}/product`, productRoutes);
+app.use(`${apiV1}/chatConvo`, conversationRoutes);
+app.use(`${apiV1}/chatMessages`, messageRoutes);
 
 // Root route
 app.get('/', (req, res) => {
-  res.send('Server running smoothly!');
+  res.send(`Server running smoothly in ${envConfig.env} mode!`);
 });
 
 // Centralized Error Handler
