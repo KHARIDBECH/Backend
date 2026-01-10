@@ -36,6 +36,22 @@ export const getAllCategories = asyncHandler(async (req, res, next) => {
     return sendResponse(res, StatusCodes.OK, products, `Products for category ${req.params.category} fetched successfully`);
 });
 
+// @desc    Update product details
+// @route   PUT /api/product/:id
+// @access  Private
+export const updateProduct = asyncHandler(async (req, res, next) => {
+    const product = await productService.updateProduct(req.params.id, req.body, req.files, req.user[UNDERSCOREID]);
+    return sendResponse(res, StatusCodes.OK, product, 'Ad updated successfully');
+});
+
+// @desc    Update product status (mark as sold, etc.)
+// @route   PATCH /api/product/:id/status
+// @access  Private
+export const updateProductStatus = asyncHandler(async (req, res, next) => {
+    const product = await productService.updateProductStatus(req.params.id, req.body.status, req.user[UNDERSCOREID]);
+    return sendResponse(res, StatusCodes.OK, product, 'Ad status updated successfully');
+});
+
 // @desc    Delete product
 // @route   DELETE /api/product/:id
 // @access  Private

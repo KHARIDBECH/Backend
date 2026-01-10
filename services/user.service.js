@@ -61,8 +61,8 @@ export const getUserAds = async (userId, query) => {
         userId,
         skip,
         limit,
-        'title price images postedAt',
-        '-postedAt'
+        'title price images createdAt status',
+        { createdAt: -1 }
     );
 
     const totalAds = await productRepository.countByUserId(userId);

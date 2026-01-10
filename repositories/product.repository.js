@@ -36,3 +36,7 @@ export const countByUserId = async (userId) => {
 export const deleteById = async (productId) => {
     return await Ad.findByIdAndDelete(productId);
 };
+
+export const updateById = async (productId, updateData) => {
+    return await Ad.findByIdAndUpdate(productId, updateData, { new: true, runValidators: true });
+};

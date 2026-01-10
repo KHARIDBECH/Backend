@@ -25,14 +25,24 @@ export const updateProductSchema = Joi.object({
     location: Joi.object({
         city: Joi.string(),
         state: Joi.string()
-    })
+    }),
+    // Allow keeping track of images to remove
+    imagesToRemove: Joi.array().items(Joi.string())
+}).min(1); // At least one field must be provided
+
+// Schema for updating just the product status
+export const updateStatusSchema = Joi.object({
+    status: Joi.string().valid('Active', 'Sold', 'Expired').required()
 });
 
 export const productQuerySchema = Joi.object({
     city: Joi.string().allow(''),
     state: Joi.string().allow(''),
     category: Joi.string().allow(''),
-    search: Joi.string().allow('').optional()
+    search: Joi.string().allow('').optional(),
+    // Price range filters
+    minPrice: Joi.number().min(0).optional(),
+    maxPrice: Joi.number().min(0).optional()
 });
 
 export const productIdParamSchema = Joi.object({

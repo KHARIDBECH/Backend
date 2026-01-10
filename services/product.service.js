@@ -29,10 +29,12 @@ export const createProduct = async (productData, files, userId) => {
 };
 
 export const getProducts = async (query) => {
-    const { city, state, search } = query;
+    const { city, state, search, minPrice, maxPrice } = query;
 
     // Build the query object
-    let queryObj = {};
+    let queryObj = {
+        status: 'Active' // Only show active products by default
+    };
 
     // 1. Text Search (checks title, description, category, subcategory)
     if (search) {
@@ -53,7 +55,18 @@ export const getProducts = async (query) => {
         queryObj['location.state'] = { $regex: state, $options: 'i' };
     }
 
-    // 3. Fetch Data
+    // 3. Price Range Filtering
+    if (minPrice !== undefined || maxPrice !== undefined) {
+        queryObj.price = {};
+        if (minPrice !== undefined) {
+            queryObj.price.$gte = Number(minPrice);
+        }
+        if (maxPrice !== undefined) {
+            queryObj.price.$lte = Number(maxPrice);
+        }
+    }
+
+    // 4. Fetch Data
     return await productRepository.find(queryObj);
 };
 
@@ -78,8 +91,76 @@ export const getProductById = async (productIdOrSlug) => {
 
 export const getProductsByCategory = async (category) => {
     return await productRepository.find({
-        category: { $regex: category, $options: 'i' }
+        category: { $regex: category, $options: 'i' },
+        status: 'Active' // Only show active products
     });
+};
+
+// Update product details (edit ad)
+export const updateProduct = async (productId, updateData, files, userId) => {
+    const ad = await productRepository.findById(productId);
+
+    if (!ad) {
+        throw new ErrorResponse(`Ad not found with id of ${productId}`, 404);
+    }
+
+    // Check if the ad belongs to the authenticated user
+    if (ad.postedBy.toString() !== userId.toString()) {
+        throw new ErrorResponse('Not authorized to update this ad', 403);
+    }
+
+    // Handle image removal if specified
+    if (updateData.imagesToRemove && updateData.imagesToRemove.length > 0) {
+        // Delete images from S3
+        const deletePromises = updateData.imagesToRemove.map(filename => {
+            const command = new DeleteObjectCommand({
+                Bucket: envConfig.aws.bucketName,
+                Key: filename,
+            });
+            return s3.send(command).catch(err => console.error('Failed to delete S3 object:', err));
+        });
+        await Promise.all(deletePromises);
+
+        // Remove from product images array
+        ad.images = ad.images.filter(img => !updateData.imagesToRemove.includes(img.filename));
+    }
+
+    // Handle new image uploads
+    if (files && files.length > 0) {
+        const newImages = files.map(file => ({
+            filename: file.key,
+            url: file.location
+        })).filter(img => img.url);
+
+        ad.images = [...ad.images, ...newImages];
+    }
+
+    // Update other fields
+    const { imagesToRemove, ...fieldsToUpdate } = updateData;
+    Object.keys(fieldsToUpdate).forEach(key => {
+        if (fieldsToUpdate[key] !== undefined) {
+            ad[key] = fieldsToUpdate[key];
+        }
+    });
+
+    return await ad.save();
+};
+
+// Update product status (mark as sold, etc.)
+export const updateProductStatus = async (productId, status, userId) => {
+    const ad = await productRepository.findById(productId);
+
+    if (!ad) {
+        throw new ErrorResponse(`Ad not found with id of ${productId}`, 404);
+    }
+
+    // Check if the ad belongs to the authenticated user
+    if (ad.postedBy.toString() !== userId.toString()) {
+        throw new ErrorResponse('Not authorized to update this ad status', 403);
+    }
+
+    ad.status = status;
+    return await ad.save();
 };
 
 export const deleteProduct = async (productId, userId) => {
